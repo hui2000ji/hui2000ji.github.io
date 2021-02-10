@@ -23,13 +23,13 @@ such as drug discovery, single-cell modeling, etc.
 - [**Multi-Modal Sarcasm Detection in Twitter with Hierarchical Fusion Model**](https://www.aclweb.org/anthology/P19-1239/) <br><em>ACL</em>, 2019 &emsp;[data](https://github.com/headacheboy/data-of-multimodal-sarcasm-detection)<br>Yitao Cai, <strong>Huiyu Cai</strong>, <a href="https://wanxiaojun.github.io/">Xiaojun Wan</a>
 
 ## For-Fun Projects
+- [**Implementation of the EWLS Algorithm for the Maximum Clique Problem**](assets/codes/EWLS.cpp) (Dec. 2020 - Jan. 2021)
 - [**Music Source Separation: Theory and Applications**](assets/documents/Music%20Source%20Separation%20-%20Report.pdf) (Apr. 2020 - Jun. 2020)
 - [**Raiden Game Implementation in Java**](https://github.com/hui2000ji/RaidenGame) (Jan. 2020 - Jun. 2020)
 - [**Fine-grained Face Manipulation via DLGAN**](https://github.com/sunyaofeng8/AI-Intro) (Oct. 2019 - Jan. 2020)
 - **Bird Sound Classification via CNN** (Mar. 2019 - Jun. 2019)
 - **[Mahjong](https://www.botzone.org.cn/game/Mahjong-GB) AI Based on Supervised Learning** (Mar. 2019 - Jun. 2019)
 - **Rule-based [Doudizhu](https://www.botzone.org.cn/game/FightTheLandlord2) & [Ataxx](https://www.botzone.org.cn/game/Ataxx) & [Reversi](https://www.botzone.org.cn/game/Reversi) & [pysc2-minimap](https://github.com/deepmind/pysc2) AI** (Oct. 2017 - May. 2019)
-- [**Implementation of the EWLS Algorithm for the Maximum Clique Problem**](assets/codes/EWLS.cpp)
 
 ## Change Color Palette
 

@@ -1,0 +1,28 @@
+<script type="text/javascript">
+    window.languagePluginUrl = 'https://cdn.jsdelivr.net/pyodide/v0.16.1/full/';
+</script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.16.1/full/pyodide.js"></script>
+<textarea id="code" style="width: 100%; resize: none" rows="8">Input your code here...</textarea>
+<button class="md-button md-button--primary" onclick="evaluatePython()">Run</button>
+
+<div>Output:</div>
+<textarea id="output" style="width: 100%; resize: none" rows="8" disabled></textarea>
+
+<script>
+    const output = document.getElementById("output");
+    const code = document.getElementById("code");
+
+    function addToOutput(s) {
+        output.value += '>>> ' + code.value + '\n' + s + '\n';
+    }
+
+    output.value = 'Initializing...\n';
+    // init pyodide
+    languagePluginLoader.then(() => { output.value += 'Ready!\n'; });
+
+    function evaluatePython() {
+        pyodide.runPythonAsync(code.value)
+        .then(output => addToOutput(output))
+        .catch((err) => { addToOutput(err) });
+    }
+</script>

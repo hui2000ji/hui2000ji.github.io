@@ -8,6 +8,7 @@ theme:
 nav:
   - Home: 'index.md'
   - CV: 'assets/documents/CV - Huiyu Cai.pdf'
+  - Python Tutorial: 'python-tutorial/index.md'
 markdown_extensions:
   - toc:
       permalink: true
@@ -15,7 +16,6 @@ markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
 extra_javascript:
-  - javascripts/config.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 extra:
@@ -26,3 +26,5 @@ extra:
       link: https://twitter.com/hui2000ji
     - icon: fontawesome/brands/github
       link: https://github.com/hui2000ji
+plugins:
+    - macros

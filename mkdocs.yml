@@ -8,8 +8,12 @@ theme:
 nav:
   - Home: 'index.md'
   - CV: 'assets/documents/CV - Huiyu Cai.pdf'
-  - Python Tutorial: 'python-tutorial/index.md'
+  - Machine Learning:
+    - Index: 'machine_learning/index.md'
+    - Graph Neural Networks: 'machine_learning/graph_neural_networks.md'
+  # - Python Tutorial: 'python-tutorial/index.md'
 markdown_extensions:
+  - admonition
   - toc:
       permalink: true
   - attr_list
@@ -19,7 +23,7 @@ extra_javascript:
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js
-  - javascripts/config.js
+  - assets/javascripts/config.js
 extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/atom-one-light.min.css
 extra:

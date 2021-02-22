@@ -18,7 +18,7 @@ such as drug discovery, single-cell modeling, etc.
 
 - [**Learning interpretable cellular and gene signature embeddings from single-cell transcriptomic data**](https://www.biorxiv.org/content/10.1101/2021.01.13.426593v1.full)<br><em>bioRxiv</em>, 2020 &emsp;[code](https://github.com/hui2000ji/scETM)<br><a href="https://yifnzhao.github.io/">Yifan Zhao</a>\*, <strong>Huiyu Cai</strong>\*, <a href="https://oxer11.github.io/">Zuobai Zhang</a>, <a href="https://jian-tang.com">Jian Tang</a>, <a href="https://www.cs.mcgill.ca/~yueli/">Yue Li</a><br> *<em>Equal contribution</em>
 
-![multi-modal sarcasm detection](assets/images/ACL_2019.png){: align=right style="width: 25%" }
+![multi-modal sarcasm detection](assets/images/ACL_2019.jpg){: align=right style="width: 25%" }
 
 - [**Multi-Modal Sarcasm Detection in Twitter with Hierarchical Fusion Model**](https://www.aclweb.org/anthology/P19-1239/) <br><em>ACL</em>, 2019 &emsp;[data](https://github.com/headacheboy/data-of-multimodal-sarcasm-detection)<br>Yitao Cai, <strong>Huiyu Cai</strong>, <a href="https://wanxiaojun.github.io/">Xiaojun Wan</a>
 

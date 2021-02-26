@@ -65,7 +65,7 @@ We refer the readers to this elegant tutorial ([part1](https://web.stanford.edu/
 
 ### Graph Convolution
 
-There are two approaches to defining graph convolution: spectral methods and spatial methods. The former defines convolution through graph Fourier transform, and the latter defines convolution as aggregating messages coming from the neighborhood.
+There are two approaches to defining graph convolution: spectral methods and spatial methods [^1]. The former defines convolution through graph Fourier transform, and the latter defines convolution as aggregating messages coming from the neighborhood.
 
 #### Spectral Graph Convolution
 
@@ -152,12 +152,13 @@ ChebNet is a particular setting of spatial convolution with local weighting func
 ## Message Passing GCNs
 
 Message passing Neural Networks (MPNNs) can be divided into isotropic and anisotropic GCNs by whether the node update function $\agg$ treats every edge direction equally.
+The terminology of MPNNs and WL-GNNs and isotropic and anisotropic GNNs are from [^4].
 
 ### Isotropic GCNs
 
 #### GCN
 
-> 2017 ICLR - Semi-Supervised Classification with Graph Convolutional Networks
+> 2017 ICLR - Semi-Supervised Classification with Graph Convolutional Networks [^5]
 
 $$
 \mathbf{h}^{l+1}_v = \relu \big( \mathbf{U}^l \mean \{ \mathbf{h}^l_u : u \in \mathcal{N}_v \}\big)
@@ -173,7 +174,7 @@ with $\tilde{\mathbf{W}} = \mathbf{W} + \mathbf{I}$ and $\tilde{\mathbf{D}} = \d
 
 #### GraphSAGE
 
-> 2017 NeurIPS - Inductive Representation Learning on Large Graphs
+> 2017 NeurIPS - Inductive Representation Learning on Large Graphs [^6]
 
 $$
 \mathbf{h}^{l+1}_v = \ltwonorm \bigg( \relu \Big(
@@ -189,7 +190,7 @@ $$
 
 #### GAT
 
-> 2018 ICLR - Graph Attention Networks
+> 2018 ICLR - Graph Attention Networks [^7]
 
 $K$-head attention.
 
@@ -208,7 +209,7 @@ $$
 
 #### MoNet
 
-> 2017 CVPR - Geometric deep learning on graphs and manifolds using mixture model CNNs
+> 2017 CVPR - Geometric deep learning on graphs and manifolds using mixture model CNNs [^8]
 
 $$
 \begin{align}
@@ -222,7 +223,7 @@ $$
 
 #### GatedGCN
 
-> 2017 - Residual Gated Graph ConvNets
+> 2018 ICLR - Residual Gated Graph ConvNets [^9]
 
 $$
 \begin{align}
@@ -238,9 +239,11 @@ $$
 
 ## Weisfeiler-Lehman GNNs
 
+This line of research [^2] is based on the Weisfeiler-Lehman (WL) graph isomorphism test, which aims to develop provably expressive GNNs.
+
 ### GIN
 
-> 2019 ICLR - How Powerful are Graph Neural Networks
+> 2019 ICLR - How Powerful are Graph Neural Networks [^10]
 
 The GIN architecture is a provable 1-WL GNN based on the Weisfeiler-Lehman Isomorphism Test.
 
@@ -264,10 +267,10 @@ $$
 
 ### 3WL-GNN
 
-> 2019 NeurIPS - Provably powerful graph networks
+> 2019 NeurIPS - Provably powerful graph networks [^11]
 
 3-WL GNNs uses rank-2 tensors ($n \times n \times d$) while being 3-WL provable.
-This 3-WL model improves the space/time complexities of $k$-GNN from $O(n^3)$/$O(n^4)$ to $O(n^2)$/$O(n^3)$ respectively.
+This 3-WL model improves the space/time complexities of $k$-GNN [^3] from $O(n^3)$/$O(n^4)$ to $O(n^2)$/$O(n^3)$ respectively.
 
 We first introduce the $n \times n \times (1 + d_{\mathrm{node}} + d_{\mathrm{edge}})$ input tensor
 
@@ -296,9 +299,15 @@ $$
 
 where the tensor multiplication is defined as an einsum of `ipk,pjk->ijk`, *i.e.*, per-feature matrix multiplication.
 
-## References
-- [Graph Convolutional Networks for Geometric Deep Learning](https://towardsdatascience.com/graph-convolutional-networks-for-geometric-deep-learning-1faf17dee008)
-- NeurIPS 2017 Tutorial - Geometric Deep Learning [slides](http://geometricdeeplearning.com/slides/NIPS-GDL.pdf) [video](https://www.youtube.com/watch?v=LvmjbXZyoP0)
-- [Invariant Graph Networks](https://slideslive.com/38917604/invariant-graph-networks), ICML 2019 Workshop - Learning and Reasoning with Graph-Structured Representations
-- [Graph Neural Networks and Graph Isomorphism](https://slideslive.com/38917609/graph-neural-networks-and-graph-isomorphism), ICML 2019 Workshop - Learning and Reasoning with Graph-Structured Representations
-- [Benchmarking Graph Neural Networks](https://slideslive.com/38930553/benchmarking-graph-neural-networks), ICML 2020 Workshop - Graph Representation Learning and Beyond
+
+[^1]: TowardsDataScience blogpost - [Graph Convolutional Networks for Geometric Deep Learning](https://towardsdatascience.com/graph-convolutional-networks-for-geometric-deep-learning-1faf17dee008); NeurIPS 2017 Tutorial - Geometric Deep Learning [slides](http://geometricdeeplearning.com/slides/NIPS-GDL.pdf) [video](https://www.youtube.com/watch?v=LvmjbXZyoP0)
+[^2]: [Invariant Graph Networks](https://slideslive.com/38917604/invariant-graph-networks), ICML 2019 Workshop - Learning and Reasoning with Graph-Structured Representations
+[^3]: [Graph Neural Networks and Graph Isomorphism](https://slideslive.com/38917609/graph-neural-networks-and-graph-isomorphism), ICML 2019 Workshop - Learning and Reasoning with Graph-Structured Representations; For the $k$-GNN paper published on AAAI 2019, see [Weisfeiler and Leman Go Neural: Higher-order Graph Neural Networks](https://aaai.org/ojs/index.php/AAAI/article/view/4384).
+[^4]: [Benchmarking Graph Neural Networks](https://slideslive.com/38930553/benchmarking-graph-neural-networks), ICML 2020 Workshop - Graph Representation Learning and Beyond
+[^5]: ICLR 2017 - [Semi-Supervised Classification with Graph Convolutional Networks](https://openreview.net/forum?id=SJU4ayYgl); Thomas Kipf's [blog post](https://tkipf.github.io/graph-convolutional-networks/) explaining the basic ideas of GCN.
+[^6]: NeurIPS 2017 - [Inductive Representation Learning on Large Graphs](https://arxiv.org/abs/1706.02216)
+[^7]: ICLR 2018 - [Graph Attention Networks](https://arxiv.org/abs/1710.10903); See this [blog post](https://petar-v.com/GAT/) by Petar Veličković for more detailed explanations.
+[^8]: CVPR 2017 - [Geometric deep learning on graphs and manifolds using mixture model CNNs](https://arxiv.org/abs/1611.08402)
+[^9]: ICLR 2018 - [Residual Gated Graph ConvNets](https://openreview.net/forum?id=HyXBcYg0b)
+[^10]: ICLR 2019 - [How Powerful are Graph Neural Networks](https://openreview.net/forum?id=ryGs6iA5Km)
+[^11]: NeurIPS 2019 - [Provably powerful graph networks](https://openreview.net/pdf/7fd2f63da562a351552b127a8602449f757fd7c0.pdf)

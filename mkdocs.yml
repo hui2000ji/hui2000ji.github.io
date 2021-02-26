@@ -11,9 +11,14 @@ nav:
   - Machine Learning:
     - Index: 'machine_learning/index.md'
     - Graph Neural Networks: 'machine_learning/graph_neural_networks.md'
+    - Representation Learning with Mutual Information Maximization: 'machine_learning/representation_learning_with_mutual_information_maximization.md'
+  - Single Cell:
+    - Review: 'single_cell/review.md'
   # - Python Tutorial: 'python-tutorial/index.md'
 markdown_extensions:
   - admonition
+  - abbr
+  - footnotes
   - toc:
       permalink: true
   - attr_list

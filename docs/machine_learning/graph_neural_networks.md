@@ -83,6 +83,8 @@ $$
 !!! note "Why can't we define spectral graph convolution in the spatial domain as in [here](#discrete-2-d-convolution)?"
     Because there’s no notion of space or direction inherent to a graph.
 
+    To get anisotropy back, one can use natural edge features if applicable, or adopt mechanisms invariant by index permutation yet treat neighbors differently, e.g. node degrees ([MoNet](#monet)), edge gates ([Gated GCN](#gatedgcn)) and attention ([GAT](#GAT)).
+
 Though theoretically elegant, these methods suffer from several drawbacks, namely
 
 - Filters are basis-dependent → only applies to transductive setting
@@ -254,6 +256,12 @@ $$
 \Big) \bigg)
 $$
 
+GIN also proposed an injective graph-level readout
+
+$$
+\mathbf{h}_G = \Vert_{l=0}^L \sum_{v \in V} \mathbf{h}_v^l
+$$
+
 ### 3WL-GNN
 
 > 2019 NeurIPS - Provably powerful graph networks
@@ -287,3 +295,10 @@ $$
 $$
 
 where the tensor multiplication is defined as an einsum of `ipk,pjk->ijk`, *i.e.*, per-feature matrix multiplication.
+
+## References
+- [Graph Convolutional Networks for Geometric Deep Learning](https://towardsdatascience.com/graph-convolutional-networks-for-geometric-deep-learning-1faf17dee008)
+- NeurIPS 2017 Tutorial - Geometric Deep Learning [slides](http://geometricdeeplearning.com/slides/NIPS-GDL.pdf) [video](https://www.youtube.com/watch?v=LvmjbXZyoP0)
+- [Invariant Graph Networks](https://slideslive.com/38917604/invariant-graph-networks), ICML 2019 Workshop - Learning and Reasoning with Graph-Structured Representations
+- [Graph Neural Networks and Graph Isomorphism](https://slideslive.com/38917609/graph-neural-networks-and-graph-isomorphism), ICML 2019 Workshop - Learning and Reasoning with Graph-Structured Representations
+- [Benchmarking Graph Neural Networks](https://slideslive.com/38930553/benchmarking-graph-neural-networks), ICML 2020 Workshop - Graph Representation Learning and Beyond

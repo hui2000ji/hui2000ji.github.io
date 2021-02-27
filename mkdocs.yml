@@ -28,9 +28,10 @@ extra_javascript:
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js
-  - assets/javascripts/config.js
+  - assets/js/config.js
 extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/atom-one-light.min.css
+  - assets/css/style.css
 extra:
   social:
     - icon: fontawesome/solid/envelope

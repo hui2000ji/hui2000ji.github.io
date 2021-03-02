@@ -1,8 +1,6 @@
 site_name: Huiyu CAI
 theme:
   name: material
-  palette:
-    scheme: preference
   features:
     - navigation.tabs
 nav:

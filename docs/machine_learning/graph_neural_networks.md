@@ -2,6 +2,21 @@
 
 ## Preliminaries
 
+### Permutation In-/Equi-varience on Graphs
+
+Let $P$ be a permutation matrix.
+
+**Invariance** &emsp; Invariant function outputs the same value for all permutations of the node index. This is required by graph-level tasks.
+
+$$
+f(\mathbf{PX}, \mathbf{PAP}^\top) = f(\mathbf{X}, \mathbf{A})
+$$
+
+**Equivariance** &emsp; Equivariant function outputs the permuted value for all permutations of the node index. This is required by node-/edge-level tasks.
+
+$$
+f(\mathbf{PX}, \mathbf{PAP}^\top) = \mathbf{P}f(\mathbf{X}, \mathbf{A})
+$$
 ### General Convolution
 
 #### Continuous 1-D Convolution
@@ -72,7 +87,7 @@ There are two approaches to defining graph convolution: spectral methods and spa
 Let $G = \langle V=[n], E, \mathbf{W} \rangle$ be an undirected weighted graph.
 The unnormalized graph Laplacian is $\mathbf{L} = \mathbf{D} - \mathbf{W}$, where the degree matrix $\mathbf{D} = \diag \big( \sum_{j \ne i} w_{ij} \big)$.
 
-The Laplacian has an eigendecomposition $\mathbf{L} = \mathbf{\Phi}\mathbf{\Lambda}\mathbf{\Phi}^\top$.
+The Laplacian has an eigendecomposition $\mathbf{L} = \mathbf{\Phi}\mathbf{\Lambda}\mathbf{\Phi}^\top$. Changing the eigenvalues in $\mathbf{\Lambda}$ expresses any operation that commutes with $\mathbf{L}$.
 Given a graph signal $\mathbf{f} = (f_1, \dots, f_n)^\top$, its *graph Fourier transform* is given by $\hat{\mathbf{f}} = \mathbf{\Phi}^\top \mathbf{f}$.
 The *spectral convolution* of two graph signals is defined as (transform → multiplication → reverse transform)
 
@@ -92,7 +107,8 @@ Though theoretically elegant, these methods suffer from several drawbacks, namel
 - $O(n^2)$ computation of GFT and IGFT
 - No guarantee of spatial localization of filters
 
-Observe that in the Euclidean setting, localization in space is equivalent to smoothness in the frequency domain
+As shown above, directly learning the eigenvalues $\diag(\hat{g}_1, \dots, \hat{g}_n)$ is typically inappropriate.
+We instead "spatialize" the spectral graph convolution by learning a function of the eigenvalues of the Laplacian. Observe that in the Euclidean setting, localization in space is equivalent to smoothness in the frequency domain
 
 $$
 \int_{-\infty}^\infty \left|x\right|^{2k} \left|f(x)\right|^2 \dd x =
@@ -148,6 +164,15 @@ Several CNN-type geometric deep learning methods on graphs and manifolds can be 
 |element|$h_i = \sum_{k=0}^K \alpha_k (\mathbf{L}^k \mathbf{f})_i$|$h_i = \sum_{k=1}^K g_k (\mathcal{D}f)_i$|
 
 ChebNet is a particular setting of spatial convolution with local weighting functions given by the powers of the Laplacian $w_k(x, y) = \mathbf{L}^{k-1}_{x,y}$.
+
+### GNN vs. Random Walk Models
+
+Random walk objectives inherently capture local similarities
+From a representation perspective, random walk node embedding models emulate a convolutional GNN.
+
+**Corollary 1**: Random-walk objectives can fail to provide useful signal to GNNs.
+
+**Corollary 2**: At times, DeepWalk can be matched by an *untrained* conv-GNN.
 
 ## Message Passing GCNs
 
@@ -304,10 +329,11 @@ where the tensor multiplication is defined as an einsum of `ipk,pjk->ijk`, *i.e.
 [^2]: [Invariant Graph Networks](https://slideslive.com/38917604/invariant-graph-networks), ICML 2019 Workshop - Learning and Reasoning with Graph-Structured Representations
 [^3]: [Graph Neural Networks and Graph Isomorphism](https://slideslive.com/38917609/graph-neural-networks-and-graph-isomorphism), ICML 2019 Workshop - Learning and Reasoning with Graph-Structured Representations; For the $k$-GNN paper published on AAAI 2019, see [Weisfeiler and Leman Go Neural: Higher-order Graph Neural Networks](https://aaai.org/ojs/index.php/AAAI/article/view/4384).
 [^4]: [Benchmarking Graph Neural Networks](https://slideslive.com/38930553/benchmarking-graph-neural-networks), ICML 2020 Workshop - Graph Representation Learning and Beyond
-[^5]: ICLR 2017 - [Semi-Supervised Classification with Graph Convolutional Networks](https://openreview.net/forum?id=SJU4ayYgl); Thomas Kipf's [blog post](https://tkipf.github.io/graph-convolutional-networks/) explaining the basic ideas of GCN.
-[^6]: NeurIPS 2017 - [Inductive Representation Learning on Large Graphs](https://arxiv.org/abs/1706.02216)
-[^7]: ICLR 2018 - [Graph Attention Networks](https://arxiv.org/abs/1710.10903); See this [blog post](https://petar-v.com/GAT/) by Petar Veličković for more detailed explanations.
-[^8]: CVPR 2017 - [Geometric deep learning on graphs and manifolds using mixture model CNNs](https://arxiv.org/abs/1611.08402)
-[^9]: ICLR 2018 - [Residual Gated Graph ConvNets](https://openreview.net/forum?id=HyXBcYg0b)
-[^10]: ICLR 2019 - [How Powerful are Graph Neural Networks](https://openreview.net/forum?id=ryGs6iA5Km)
-[^11]: NeurIPS 2019 - [Provably powerful graph networks](https://openreview.net/pdf/7fd2f63da562a351552b127a8602449f757fd7c0.pdf)
+[^5]: [Semi-Supervised Classification with Graph Convolutional Networks](https://openreview.net/forum?id=SJU4ayYgl), ICLR 2017; Thomas Kipf's [blog post](https://tkipf.github.io/graph-convolutional-networks/) explaining the basic ideas of GCN.
+[^6]: [Inductive Representation Learning on Large Graphs](https://arxiv.org/abs/1706.02216), NeurIPS 2017
+[^7]: [Graph Attention Networks](https://arxiv.org/abs/1710.10903), ICLR 2018; See this [blog post](https://petar-v.com/GAT/) by Petar Veličković for more detailed explanations.
+[^8]: [Geometric deep learning on graphs and manifolds using mixture model CNNs](https://arxiv.org/abs/1611.08402), CVPR 2017
+[^9]: [Residual Gated Graph ConvNets](https://openreview.net/forum?id=HyXBcYg0b), ICLR 2018
+[^10]: [How Powerful are Graph Neural Networks](https://openreview.net/forum?id=ryGs6iA5Km), ICLR 2019
+[^11]: [Provably powerful graph networks](https://openreview.net/pdf/7fd2f63da562a351552b127a8602449f757fd7c0.pdf), NeurIPS 2019
+[^12]: Theoretical Foundations of Graph Neural Networks, Computer Laboratory Wednesday Seminar, 17 February 2021 [video](https://www.youtube.com/watch?v=uF53xsT7mjc), [slides](https://petar-v.com/talks/GNN-Wednesday.pdf)

@@ -10,6 +10,7 @@ Suppose we want to train a generative model $Q$ that generates data as realistic
 
 $$
 \DeclareMathOperator{\Dcal}{\mathcal{D}}
+\DeclareMathOperator{\Gcal}{\mathcal{G}}
 \DeclareMathOperator{\Vcal}{\mathcal{V}}
 \DeclareMathOperator{\Tcal}{\mathcal{T}}
 \DeclareMathOperator{\Lcal}{\mathcal{L}}
@@ -238,6 +239,8 @@ $$
 \end{align}
 $$
 
+Note that the approximation is more accurate as the number of negative samples increases.
+
 ### Relation with MINE
 
 Let $F(x, c) = \log f(x, c)$, then
@@ -263,29 +266,44 @@ $$
 
 > 2019 ICLR - Learning deep representations by mutual information estimation and maximization [^5]
 
-Here we outline the general setting of training a continuous and (almost everywhere)
+Deep InfoMax is a principled framework for training a continuous and (almost everywhere)
 differentiable encoder $E_\psi: \Xcal \to \Zcal$ to maximize mutual information between
 its input and output, with neural network parameters $\psi \in \Psi$.
+
 Assume that we are given a set of training examples on an input space, $\mathbf{X} := \{x^{(i)} \in \Xcal\}_{i=1}^N$, with empirical probability distribution $P$.
 We define $U_{\psi,P}$ as the marginal distribution of $z=E_\psi(x)$ where $x$ is sampled from $P$, i.e., $u(z=E_\psi(x)) = \big( \nabla_x E_\psi(x) \big)^{-1} p(x)$.
 
-We assert our encoder should be trained according to the following criteria: mutual information maximization, and statistical constraints (prior in the latent space $v(z)$).
+We assert our encoder should be trained according to the following criteria:
+
+- Local and global mutual information maximization
+- Statistical constraints (prior in the latent space $v(z)$).
 
 $$
 \min_{\psi} - I(X; Z) + \lambda \KL(v(z)\Vert u(z))
 $$
 
-Here we introduce the encoder $E_\psi(x) = f_\psi \circ C_\psi(x)$ and the discriminator $T_{\psi, \omega} (x, z)$.
+As a preliminary, we introduce the local feature encoder $C_\psi$, the global feature encoder $E_\psi = f_\psi \circ C_\psi$ and the discriminator $T_{\psi, \omega} = D_\omega \circ g \circ (C_\psi, E_\psi)$,
+where $D_\omega$ is a neural classifier, and $g$ is a function that combines the local and global features.
+
+The overall DIM objective consists of three parts, global MI, local MI and statistical constraints.
 
 $$
-T_{\psi, \omega} = D_\omega \circ g \circ (C_\psi, E_\psi).
+\begin{align}
+\max_{\omega_1, \omega_2, \psi} &\Big(
+    \alpha \hat{I}_{\omega_1, \psi} \big( X; E_\psi(X) \big) + \frac{\beta}{M^2}\sum_{i=1}^{M^2} \hat{I}_{\omega_2, \psi} \big (X^{(i)}; E_\psi(X) \big)
+\Big) + \\
+&\min_\psi\max_\phi \gamma \hat{D}_\phi(V \Vert U_{\psi, P})
+\end{align}
 $$
 
-where $D$ is a neural classifier, $g$ is a function that combines the encoder output with the lower layer, $C_\psi$, $E_\psi$ are local and global representation encoders, respectively.
+In the following sections, we first introduce how to enfore statistical constraints $\hat{D}_\phi$ and local MI maximization, then discuss objectives for general MI maximization $\hat{I}$.
 
 ### Statistical Constraints
 
 ![Matching the output of the encoder to a prior.](../assets/images/DIM_fig7_statistical_constraint.jpg){: style="width: 70%" .image-center }
+
+!!! note "Why use adversarial objectives for KL regularization?"
+    Here we could also use VAE-style prior regularization $\min \KL \big(q(z|x) \Vert p(z) \big)$, but this assumes for every data point $x$, its latent $q(z|x)$ is close to $p(z)$. This will encourage $q(z)$ to pick the modes of $p(z)$, rather than the whole distribution of $p(z)$. See the [Adversarial AutoEncoders](https://arxiv.org/abs/1511.05644) paper for more details.
 
 DIM imposes statistical constraints onto learned representations by implicitly training the encoder so that the push-forward distribution, $U_{\psi, P}$, matches
 a prior $V$. Following [variational representation of the Jensen-Shannon divergence](#variational-representation-of-the-f-divergence), we optimize this objective by
@@ -310,17 +328,6 @@ $$
 \max_{\omega, \psi} \frac{1}{M^2} \sum_{i=1}^{M^2} \hat{I}_{\omega, \psi}\big( C_\psi^{(i)}(X); E_\psi(X) \big).
 $$
 
-### The DIM Objective
-
-$$
-\begin{align}
-\max_{\omega_1, \omega_2, \psi} &\Big(
-    \alpha \hat{I}_{\omega_1, \psi} \big( X; E_\psi(X) \big) + \frac{\beta}{M^2}\sum_{i=1}^{M^2} \hat{I}_{\omega_2, \psi} \big (X^{(i)}; E_\psi(X) \big)
-\Big) + \\
-&\min_\psi\max_\phi \gamma \hat{D}_\phi(V \Vert U_{\psi, P})
-\end{align}
-$$
-
 ### MI Maximization Objectives
 
 #### The Donsker-Varadhan Objective
@@ -333,15 +340,17 @@ $$
 
 #### The Jensen-Shannon Objective
 
-Since we do not concern the precise value of Mutual Information, and rather primarily interested in its maximization, we could instead optimize on the Jensen-Shannon divergence. This objective is stable to optimize and requires few negative sample, but it is a looser bound to the true mutual information.
+Since we do not concern the precise value of mutual information, and rather primarily interested in its maximization, we could instead optimize on the Jensen-Shannon divergence. This objective is stable to optimize and requires few negative sample, but it is a looser bound to the true mutual information.
 
 Following [$f$-GAN](#f-gan-objective) formulation, with output activation $g_f = -\log(1+\ee^{-v})$ and conjugate function $f^*(t) = -\log(1-\ee^t)$, we define the following objective:
 
 $$
 \begin{align}
-\hat{I}^{\text{(JS)}}_{\psi, \omega} (X; E_\psi(X)) &= \widehat{\JS}(p(x, E_\psi(x)) \Vert p(x)p(E_\psi(x))) \\
-&= \E_{p(x)} \widetilde{T}_{\psi, \omega} (x, E_\psi(x)) - \E_{p(x)p(x^\prime)} f^*(\widetilde{T}_{\psi, \omega} (x^\prime, E_\psi(x))) \\
-&= \E_{p(x)} -\log(1 + \ee^{-T_{\psi, \omega}(x, E_\psi(x))}) - \E_{p(x)p(x^\prime)} \log (1 + \ee^{T_{\psi, \omega}(x^\prime, E_\psi(x))})
+&\hat{I}^{\text{(JS)}}_{\psi, \omega} (X; E_\psi(X)) \\
+=& \widehat{\JS}(p(x, E_\psi(x)) \Vert p(x)p(E_\psi(x))) \\
+=& \E_{p(x)} \Big[ \widetilde{T}_{\psi, \omega} (x, E_\psi(x)) - \E_{p(x^\prime)} f^*(\widetilde{T}_{\psi, \omega} (x^\prime, E_\psi(x))) \Big] \\
+=& \E_{p(x)} \Big[ -\log \big(1 + \ee^{-T_{\psi, \omega}(x, E_\psi(x))} \big) - \E_{p(x^\prime)} \log \big(1 + \ee^{T_{\psi, \omega}(x^\prime, E_\psi(x))} \big) \Big] \\
+=& \E_{p(x)} \Big[ \log \sigma \big( T_{\psi, \omega}(x, E_\psi(x)) \big) + \E_{p(x^\prime)} \log \Big( 1 - \sigma \big( T_{\psi, \omega}(x^\prime, E_\psi(x)) \big) \Big) \Big]
 \end{align}
 $$
 
@@ -349,7 +358,7 @@ where $\widetilde{T} = g_f \circ T$ is the discriminator output after activation
 
 #### The InfoNCE Objective
 
-This objective uses noise-contrastive estimation to bound mutual information.
+This objective uses noise-contrastive estimation to bound mutual information. It obtains strong results, but requires many negative samples.
 
 $$
 \begin{align}
@@ -365,11 +374,38 @@ $$
 
 > 2019 ICLR - Deep Graph Infomax [^6]
 
+Deep Graph Infomax (DGI) is a general approach for learning node representations within graph-structured data in an unsupervised manner. It relies on maximizing mutual information between patch representations and corresponding high-level summaries of graphs.
 
+We first introduce
+
+- The encoder $E: \R^{N \times F^{\mathrm{in}}} \times \R^{N \times N} \to \R^{N \times F}$ such that $E(\mathbf{X}, \mathbf{A}) = \mathbf{H} = (\mathbf{h}_1, \dots, \mathbf{h}_N)^\top$ produces node embeddings (or patch representations) that summarize a patch of the graph centered around node $i$.
+- The readout function $R: \R^{N \times F} \to \R^F$ which summarizes the obtained patch representations into a graph-level representation $\mathbf{s} = R(E(\mathbf{X}, \mathbf{A}))$. It is implemented as a sigmoid after a mean $R(\mathbf{H}) = \sigma\left( \frac{1}{N} \sum_{i=1}^N \mathbf{h}_i \right)$.
+- The discriminator $D: \R^F \times \R^F \to \R$ such that $D(\mathbf{h}_i, \mathbf{s})$ represents the logit scores assigned to this patch-summary pair (should be higher for patches contained within the summary). It is implemented as a bilinear function $D(\mathbf{h}_i, \mathbf{s}) = \mathbf{h}_i \mathbf{W} \mathbf{s}$.
+- Negative samples are generated by pairing the summary vector $\mathbf{s}$ of a graph with patch representations $\widetilde{\mathbf{h}}_j$ from another graph $(\widetilde{\mathbf{X}}, \widetilde{\mathbf{A}})$. This alternative graph is obtained as other elements of a training set in a multi-graph setting, or by an explicit corruption function $(\widetilde{\mathbf{X}}, \widetilde{\mathbf{A}}) = C(\mathbf{X}, \mathbf{A})$ which permutes row-wise the node feature matrix $\mathbf{X}$.
+
+Next we introduce the DGI objective for one training graph $\Gcal = (\mathbf{X}, \mathbf{A})$, based on [the Jensen-Shannon objective for Deep InfoMax](#the-jensen-shannon-objective)
+
+$$
+\begin{align}
+\max \Lcal = \frac{1}{N + M} \bigg( &
+    \sum_{i=1}^N \E_{x_i \sim V(\Gcal)} \log \sigma \big( D(\mathbf{h}_i, \mathbf{s}) \big) \\ + & 
+    \sum_{j=1}^M \E_{\widetilde{x}_j \sim V(\widetilde{\Gcal})} \log \Big( 1 - \sigma \big(D(\widetilde{\mathbf{h}}_j, \mathbf{s}) \big) \Big)
+\bigg)
+\end{align}
+$$
+
+## InfoGraph
+
+> 2020 ICLR - InfoGraph: Unsupervised and Semi-supervised Graph-Level Representation Learning via Mutual Information Maximization [^7]
+
+InfoGraph studies learning the representations of *whole graphs* (rather than nodes as in DGI) in both unsupervised and semi-supervised scenarios. Its unsupervised version is similar to DGI except for
+
+- 
 
 [^1]: NeurIPS 2016 - [$f$-GAN: Training Generative Neural Samplers using Variational Divergence Minimization](https://arxiv.org/abs/1606.00709); A [blog post](https://kexue.fm/archives/6016) explaining the paper in Chinese.
 [^2]: ICML 2018 - [MINE: Mutual Information Neural Estimation](https://arxiv.org/abs/1801.04062)
 [^3]: AISTATS 2010 - [Noise-contrastive estimation: A new estimation principle for unnormalized statistical models](http://proceedings.mlr.press/v9/gutmann10a/gutmann10a.pdf)
 [^4]: NeurIPS 2018 - [Representation Learning with Contrastive Predictive Coding](https://arxiv.org/abs/1807.03748)
 [^5]: ICLR 2019 - [Learning deep representations by mutual information estimation and maximization](https://arxiv.org/pdf/1808.06670.pdf) ([slides](http://karangrewal.ca/files/dim_slides.pdf), [video](https://www.youtube.com/watch?v=o1HIkn8LEsw)); A [blog post](https://kexue.fm/archives/6024) explaining the paper in Chinese.
-[^6]: ICLR 2019 - [Deep Graph Infomax](https://arxiv.org/abs/1809.10341)
+[^6]: ICLR 2019 - [Deep Graph Infomax](https://arxiv.org/abs/1809.10341). For relations with previous unsupervised graph representation learning methods, see the IPAM tutorial [Unsupervised Learning with Graph Neural Networks](http://www.ipam.ucla.edu/abstract/?tid=15546&pcode=GLWS4) by Thomas Kipf and also [Daza's Master Thesis](https://dfdazac.github.io/assets/dd_thesis.pdf).
+[^7]: ICLR 2020 - [InfoGraph: Unsupervised and Semi-supervised Graph-Level Representation Learning via Mutual Information Maximization](https://arxiv.org/abs/1908.01000)

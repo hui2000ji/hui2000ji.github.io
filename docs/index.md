@@ -45,9 +45,9 @@ Click on a tile to change the color scheme:
   buttons.forEach(function(button) {
     button.addEventListener("click", function() {
       var attr = this.getAttribute("data-md-color-scheme")
-      document.body.setAttribute("data-md-color-scheme", attr)
-      var name = document.querySelector("#__code_0 code span:nth-child(7)")
-      name.textContent = attr
+      document.body.dataset.mdColorScheme = attr
+      localStorage.setItem("data-md-color-scheme", attr);
+
     })
   })
 </script>
@@ -86,13 +86,11 @@ Click on a tile to change the primary color:
 </div>
 
 <script>
-  var buttons = document.querySelectorAll("button[data-md-color-primary]")
-  buttons.forEach(function(button) {
+  var buttons = document.querySelectorAll("button[data-md-color-primary]");
+  Array.prototype.forEach.call(buttons, function(button) {
     button.addEventListener("click", function() {
-      var attr = this.getAttribute("data-md-color-primary")
-      document.body.setAttribute("data-md-color-primary", attr)
-      var name = document.querySelector("#__code_2 code span:nth-child(7)")
-      name.textContent = attr.replace("-", " ")
+      document.body.dataset.mdColorPrimary = this.dataset.mdColorPrimary;
+      localStorage.setItem("data-md-color-primary", this.dataset.mdColorPrimary);
     })
   })
 </script>
@@ -126,13 +124,12 @@ Click on a tile to change the accent color:
 </div>
 
 <script>
-  var buttons = document.querySelectorAll("button[data-md-color-accent]")
-  buttons.forEach(function(button) {
+  var buttons = document.querySelectorAll("button[data-md-color-accent]");
+  Array.prototype.forEach.call(buttons, function(button) {
     button.addEventListener("click", function() {
-      var attr = this.getAttribute("data-md-color-accent")
-      document.body.setAttribute("data-md-color-accent", attr)
-      var name = document.querySelector("#__code_3 code span:nth-child(7)")
-      name.textContent = attr.replace("-", " ")
+      document.body.dataset.mdColorAccent = this.dataset.mdColorAccent;
+      localStorage.setItem("data-md-color-accent", this.dataset.mdColorAccent);
     })
   })
+  document.getElementsByClassName('md-nav__title')[1].click()
 </script>

@@ -209,7 +209,7 @@ $$
 To maximize our contrastive predictive capabilities, we minimize the following InfoNCE loss:
 
 $$
-\Lcal^{\mathrm{(InfoNCE)}} = -\E_X \left[ \frac{f_{k}(x_{t+k}, c_t)}{\sum_{x_j \in X} f_{k}(x_{j}, c_t)} \right]
+\Lcal^{\mathrm{(InfoNCE)}} = -\E_X \left[ \log \frac{f_{k}(x_{t+k}, c_t)}{\sum_{x_j \in X} f_{k}(x_{j}, c_t)} \right]
 $$
 
 ### Relation with Mutual Information

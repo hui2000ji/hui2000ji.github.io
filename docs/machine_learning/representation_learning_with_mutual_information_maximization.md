@@ -137,7 +137,7 @@ and the optimal $T^*(x) = 1+\log \frac{p(x)}{q(x)}$.
 ### Estimating Mutual Information
 
 $$
-I(X;Z) = \KL(p(x, z) \Vert p(x)p(z)) = \sup_{\theta \in \Theta} \left\{
+I(X;Z) = \KL(p(x, z) \Vert p(x)p(z)) \ge \sup_{\theta \in \Theta} \left\{
     \E_{p(x,z)}T_\theta (x,z) - \log \E_{p(x)p(z)}\ee^{T_\theta(x,z)}
 \right\}
 $$

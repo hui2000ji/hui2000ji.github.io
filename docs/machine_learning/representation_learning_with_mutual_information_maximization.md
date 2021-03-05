@@ -14,6 +14,7 @@ $$
 \DeclareMathOperator{\Vcal}{\mathcal{V}}
 \DeclareMathOperator{\Tcal}{\mathcal{T}}
 \DeclareMathOperator{\Lcal}{\mathcal{L}}
+\DeclareMathOperator{\lcal}{\mathcal{l}}
 \DeclareMathOperator{\Xcal}{\mathcal{X}}
 \DeclareMathOperator{\Zcal}{\mathcal{Z}}
 \DeclareMathOperator{\E}{\mathbb{E}}
@@ -400,12 +401,25 @@ $$
 
 InfoGraph studies learning the representations of *whole graphs* (rather than nodes as in DGI) in both unsupervised and semi-supervised scenarios. Its unsupervised version is similar to DGI except for
 
-- 
+- Batch-wise generation of negative samples rather than random-sampling- or corruption-based negative samples.
+- GIN methodologies for better graph-level representation learning.
+
+In semi-supervised setting, directly adding a supervised loss would likely result in negative transfer. The authors alleviate this problem by separating the parameters of the supervised encoder $\varphi$ and those of the unsupervised encoder $\phi$, and adding a student-teacher loss which encourage mutual information maximization between the two encoders at all levels. The overall loss is:
+
+$$
+\begin{align}
+\Lcal = & \sum_{G \in \Gcal_{\mathrm{l}}} \lcal (\widetilde{y}_\phi(G), y_G) + \\
+& \sum_{G \in \Gcal_{\mathrm{l}} \cup \Gcal_{\mathrm{u}}} \frac{1}{|V|} \sum_{u \in V} \widehat{I}(h^u_\varphi(G), H_\varphi(G)) - \\
+& \lambda \sum_{G \in \Gcal_{\mathrm{l}} \cup \Gcal_{\mathrm{u}}} \frac{1}{|V|} \sum_{k=1}^K \widehat{I}(H^{(k)}_\phi(G), H^{(k)}_\varphi(G))
+\end{align}
+$$
+
+In practice, to reduce the computational overhead, at each training step, we enforce mutual-information maximization on a randomly chosen layer of the encoder.
 
 [^1]: NeurIPS 2016 - [$f$-GAN: Training Generative Neural Samplers using Variational Divergence Minimization](https://arxiv.org/abs/1606.00709); A [blog post](https://kexue.fm/archives/6016) explaining the paper in Chinese.
 [^2]: ICML 2018 - [MINE: Mutual Information Neural Estimation](https://arxiv.org/abs/1801.04062)
 [^3]: AISTATS 2010 - [Noise-contrastive estimation: A new estimation principle for unnormalized statistical models](http://proceedings.mlr.press/v9/gutmann10a/gutmann10a.pdf)
 [^4]: NeurIPS 2018 - [Representation Learning with Contrastive Predictive Coding](https://arxiv.org/abs/1807.03748)
 [^5]: ICLR 2019 - [Learning deep representations by mutual information estimation and maximization](https://arxiv.org/pdf/1808.06670.pdf) ([slides](http://karangrewal.ca/files/dim_slides.pdf), [video](https://www.youtube.com/watch?v=o1HIkn8LEsw)); A [blog post](https://kexue.fm/archives/6024) explaining the paper in Chinese.
-[^6]: ICLR 2019 - [Deep Graph Infomax](https://arxiv.org/abs/1809.10341). For relations with previous unsupervised graph representation learning methods, see the IPAM tutorial [Unsupervised Learning with Graph Neural Networks](http://www.ipam.ucla.edu/abstract/?tid=15546&pcode=GLWS4) by Thomas Kipf and also [Daza's Master Thesis](https://dfdazac.github.io/assets/dd_thesis.pdf).
+[^6]: ICLR 2019 - [Deep Graph Infomax](https://arxiv.org/abs/1809.10341). For relations with previous unsupervised graph representation learning methods, see the IPAM tutorial [Unsupervised Learning with Graph Neural Networks](http://www.ipam.ucla.edu/abstract/?tid=15546&pcode=GLWS4) by Thomas Kipf and also Daza's Master Thesis [A Modular Framework for Unsupervised Graph Representation Learning](https://dfdazac.github.io/assets/dd_thesis.pdf).
 [^7]: ICLR 2020 - [InfoGraph: Unsupervised and Semi-supervised Graph-Level Representation Learning via Mutual Information Maximization](https://arxiv.org/abs/1908.01000)

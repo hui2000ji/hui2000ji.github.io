@@ -1,7 +1,7 @@
 site_name: Huiyu CAI
 site_description: "Personal website of Huiyu CAI."
 repo_name: 'hui2000ji/hui2000ji.github.io'
-repo_url: 'https://hui2000ji.github.io'
+repo_url: 'https://github.com/hui2000ji/hui2000ji.github.io'
 theme:
   name: material
   features:

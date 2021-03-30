@@ -40,10 +40,10 @@ While there is no widely-accepted formalized notion of disentanglement (yet), th
 
 Disentangled representations offer several advantages[^9]:
 
-- Invariance: it is easier to derive representations that are invariant to nuisance factors by simply marginalizing over the corresponding dimensions
-- Transferability: they are arguably more suitable for transfer learning as most of the key underlying generative factors appear segregated along feature dimensions
-- Interpretability: a human expert may be able to assign meanings to the dimensions
-- Conditioning and intervention: they allow for interpretable conditioning and/or intervention over a subset of the latents and observe the effects on other nodes in the graph.
+- **Invariance**: it is easier to derive representations that are invariant to nuisance factors by simply marginalizing over the corresponding dimensions
+- **Transferability**: they are arguably more suitable for transfer learning as most of the key underlying generative factors appear segregated along feature dimensions
+- **Interpretability**: a human expert may be able to assign meanings to the dimensions
+- **Conditioning and intervention**: they allow for interpretable conditioning and/or intervention over a subset of the latents and observe the effects on other nodes in the graph.
 
 Current deep learning common practices are generally not disentangled, for instance, state-of-the-art deep learning models trained on speech data failed to capture basic conceps such as distributions on phonemes[^8].
 
@@ -51,7 +51,7 @@ Current deep learning common practices are generally not disentangled, for insta
 
 > Adapted from a benchmark paper by F. Locatello et al.[^2].
 
-### $\beta$-VAE
+### $\beta$-VAE Metric
 
 The $\beta$-VAE metric[^4] measures disentanglement as the accuracy of a linear classifier that predicts the index of a fixed factor of variation.
 
@@ -65,7 +65,7 @@ This metric has several drawbacks as pointed out by follow-up works[^5]<sup>,</s
 - Classifying data-generating factors is not intuitive because factors can be represented as a linear combination of multiple independent latent dimensions[^5]. Contrary to this point, [^6] believes a truly disentangled model should only contain one latent variable related to each factor, and argues that this metric lacks axis-alignment detection.
 - It has a failure mode: when $K-1$ out of $K$ factors are disentangled, it outputs 100%.
 
-### FactorVAE
+### FactorVAE Metric
 
 The FactorVAE metric[^5] uses a majority vote classifier on a different feature vector, namely, the argmin of the per-dimension empirical variance.
 
@@ -102,10 +102,71 @@ $$
 \end{align}
 $$
 
-### Modularity
-Modularity (Ridgeway & Mozer, 2018) measures if each dimension of $z$ depends on at most a factor of variation using their mutual information.
+### Modularity & Explicitness
+**Background: An Explicit Definition of Disentanglement**
 
-## VAE-based
+In the paper[^7], the authors first give an explicit definition of Disentanglement:
+
+- **Modular**: each dimension of the representation conveys information about at most one factor
+- **Compact**: a given factor is associated with only one or a few dimensions in the representation
+- **Explicit**: there is a simple (e.g., linear) mapping from the representation to the value of a factor
+
+They use this definition to analyse the [$\beta$-VAE Metric](#beta-vae-metric) and the [FactorVAE Metric](#factorvae-metric), and found that the former consider only modularity, while the latter consider modularity and compactness. They argue that compactness is not a desiderata for disentangled representation learning since
+
+- Forcing compactness can affect the representation’s utility, e.g. $(\sin \theta, \cos \theta)$ vs $\theta$.
+- Compactness requirement highly constrain the solution space, while allowing redundancy enables many equivalent solutions.
+
+Based on these claims, the authors quantify modularity and explicitness in their metric.
+
+**The Modularity Metric**
+
+Note that for ideally modular representation, each latent dimension would have high mutual information with a single factor. Let $m_{jk} = I(z_j;v_k)$ and $\theta_j = \max_k m_{jk}$. Define a template vector $\mathbf{t}_j$ such that 
+
+$$
+t_{jk} = \begin{cases}
+\theta_j & \text{if }k=\argmax_{k^\prime} m_{jk^\prime}\\
+0        & \text{otherwise}
+\end{cases}
+$$
+The observed deviation from the template is given by
+
+$$
+\delta_j = \frac{\sum_k (m_{jk} - t_{jk})^2}{\theta_j^2(K-1)}
+$$
+
+A deviation of 0 indicates perfect modularity and 1 indicates that the $j$-th dimension has equal mutual information with every factor.
+
+Thus, they use $1 - \delta_j$ as a modularity score for latent dimension $j$ and the mean over $j$ as the modularity score for the representation.
+
+**The Explicitness Metric**
+
+For explicitness, the author fit a one-versus-rest logistic-regression classifier that takes the entire representation as input, and record the area under the ROC curve (AUROC) of that classifier. The explicitness score is defined as the mean of AUROC over all $K$ factors and all possible values of the factors.
+
+### DCI Disentanglement Score
+
+The DCI Disentanglement Metric[^10] computes the entropy of the normalized importance of each latent dimension $j$ for predicting the value of a factor of variation $v_k$. The metric is calculated as follows:
+
+- Train $K$ regressors to predict data-generating factors $v_k$ given latent representation $z$.
+- Construct a matrix $R$ of relative importance  where $R_{jk}$ denotes the relative importance (e.g. absolute value of the LASSO weight) of $z_j$ in predicting $v_k$.
+- Devide $R$ by its row-wise sum to obtain normalized importance $P$, where $P_{jk} = \frac{R_{jk}}{\sum_{k^\prime} R_{jk}}$. Note that the "disentanglement" here is equivalent to the "modularity" in the [Modularity & Explicitness Metric](#modularity--explicitness).
+- Calculate the entropy of the normalized importance $H(P_j) = -\sum_{k=1}^K P_{jk}\log P_{jk}$ for each latent dimension $j$.
+- Obtain the DCI Disentanglement Metric by weighted average of per-dimension disentanglement $D = \sum_j \rho_j (1-H(P_j))$, where $\rho_j = \frac{\sum_k R_{jk}}{\sum_{jk}R_{jk}}$.
+
+### SAP Score
+The SAP Score[^9] is the average difference of the prediction error of the two most predictive latent dimensions for each factor. The metric is calculated as follows:
+
+- Train $K$ regressors/classifiers to predict data-generating factors $v_k$ given the $j$-th latent dimension $z_j$.
+- Construct a score matrix $R$ where $S_{jk}$ denotes the relative importance (specifically, $R^2$ score for linear regression and balanced classification accuracy for thresholded classification) of $z_j$ in predicting $v_k$. For inactive (low varince) dimensions we take $S_{jk}$ to be zero for all $k$s.
+- For each factor $k$, take the difference of top two entries of vector $S_{\cdot k}$.
+- Obtain the SAP score as the mean of these differences over all factors.
+
+Note that SAP focuses on compactness, and thus a high SAP score does not rule out not-modular representations (one latent dimension capturing two or more generative factors well). Further, a low SAP score does not rule out good modularity in cases when two (or more) latent dimensions might be correlated strongly with the same generative factor and poorly with other generative factors.
+
+### Metric Agreement
+![metric agreement](../assets/images/DRL-metric-agreement.png){: style="width: 70%" .image-center }
+Taken from the benchmark paper[^2].
+
+The authors observe that all metrics except [Modularity](#modularity--explicitness) seem to be correlated strongly on the datasets dSprites, Color-dSprites and Scream-dSprites and mildly on the other data sets. There appear to be two pairs among these metrics that capture particularly similar notions: the [$\beta$-VAE](#beta-vae-metric) and the [FactorVAE](#factorvae-metric) metric as well as the [MIG](#mutual-information-gap-mig) and [DCI Disentanglement](#dci-disentanglement-score).
 
 
 [^1]: A. Achille; S. Soatto, Emergence of Invariance and Disentanglement in Deep Representations, JMLR 2018. [paper](https://arxiv.org/pdf/1706.01350.pdf) [talk](https://www.youtube.com/watch?v=zbg49SMP5kY)
@@ -117,3 +178,4 @@ Modularity (Ridgeway & Mozer, 2018) measures if each dimension of $z$ depends on
 [^7]: K. Ridgeway; M. C. Mozer, [Learning Deep Disentangled Embeddings With the F-Statistic Loss](https://papers.nips.cc/paper/7303-learning-deep-disentangled-embeddings-with-the-f-statistic-loss.pdf), NeurIPS 2018.
 [^8]: Y. Bengio, [From Deep Learning of Disentangled Representations to Higher-level Cognition](https://www.youtube.com/watch?v=Yr1mOzC93xs), MSR AI Distinguished Lectures and Fireside Chats, 2018.
 [^9]: A. Kumar; P. Sattigeri; A. Balakrishnan, [Variational Inference of Disentangled Latent Concepts from Unlabeled Observations](https://arxiv.org/abs/1802.05983), ICLR 2018.
+[^10]: C. Eastwood; C. K. I. Williams, [A Framework for the Quantitative Evaluation of Disentangled Representations](https://openreview.net/pdf?id=By-7dz-AZ), ICLR 2018.

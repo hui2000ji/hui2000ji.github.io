@@ -4,7 +4,7 @@
 
 ### Permutation In-/Equi-varience on Graphs
 
-Let $P$ be a permutation matrix.
+Let $\mathbf{P}$ be a permutation matrix.
 
 **Invariance** &emsp; Invariant function outputs the same value for all permutations of the node index. This is required by graph-level tasks.
 

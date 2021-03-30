@@ -27,8 +27,8 @@ such as drug discovery, single-cell modeling, etc.
 - [**Music Source Separation: Theory and Applications**](assets/documents/Music%20Source%20Separation%20-%20Report.pdf) (Apr. 2020 - Jun. 2020)
 - [**Raiden Game Implementation in Java**](https://github.com/hui2000ji/RaidenGame) (Jan. 2020 - Jun. 2020)
 - [**Fine-grained Face Manipulation via DLGAN**](https://github.com/sunyaofeng8/AI-Intro) (Oct. 2019 - Jan. 2020)
-- **Bird Sound Classification via CNN** (Mar. 2019 - Jun. 2019)
-- **[Mahjong](https://www.botzone.org.cn/game/Mahjong-GB) AI Based on Supervised Learning** (Mar. 2019 - Jun. 2019)
+- **Bird Sound Classification with CNN** (Mar. 2019 - Jun. 2019)
+- **[Mahjong](https://www.botzone.org.cn/game/Mahjong-GB) AI Based on Deep Supervised Learning** (Mar. 2019 - Jun. 2019)
 - **Rule-based [Doudizhu](https://www.botzone.org.cn/game/FightTheLandlord2) & [Ataxx](https://www.botzone.org.cn/game/Ataxx) & [Reversi](https://www.botzone.org.cn/game/Reversi) & [pysc2-minimap](https://github.com/deepmind/pysc2) AI** (Oct. 2017 - May. 2019)
 
 ## Change Color Palette

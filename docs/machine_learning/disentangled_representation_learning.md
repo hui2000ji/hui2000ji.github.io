@@ -19,6 +19,7 @@ $$
 \DeclareMathOperator{\Lcal}{\mathcal{L}}
 \DeclareMathOperator{\Bcal}{\mathcal{B}}
 \DeclareMathOperator{\Ncal}{\mathcal{N}}
+\DeclareMathOperator{\Gcal}{\mathcal{G}}
 \DeclareMathOperator{\Xcal}{\mathcal{X}}
 \DeclareMathOperator{\ELBO}{\mathrm{ELBO}}
 \DeclareMathOperator{\E}{\mathbb{E}}
@@ -246,6 +247,7 @@ $$
 =& \E_{q(\zbf, n)} \log \E_{p(\Bcal_M)} \left[\frac{1}{M} \sum_{m=1}^M q(\zbf | n_m) \right] \\
 \ge& \E_{q(\zbf, n)} \log \E_{r(\Bcal_M|n)} \left[ \frac{p(\Bcal_M)}{r(\Bcal_M|n)}\frac{1}{M} \sum_{m=1}^M q(\zbf | n_m) \right] \\
 =& \E_{q(\zbf, n)} \log \E_{r(\Bcal_M|n)} \left[ \frac{1}{MN} \sum_{m=1}^M q(\zbf | n_m) \right] \\
+\approx& \frac{1}{M} \sum_{i=1}^M \left[ \log \frac{1}{NM} \sum_{m=1}^M q(\zbf | n_m) \right]
 \end{align}
 $$
 
@@ -426,12 +428,12 @@ Any one of these models could be the true causal generative model for the data, 
 
 ## Semi-supervised Disentangled Representation Learning
 
-### Some factors are known and partly labeled
+### Separating Latent Variables
 
-N. Siddharth et al.[^17] focus on the setting where some factors $\ybf$ are interpretable and partly labeled. They define an objective over $N$ unsupervised data points $\Dcal = \{\xbf^i\}_{i=1}^N$ and $M$ supervised data points $\Dsup = \{(\xbf^i, \ybf^i)\}_{i=1}^M$.
+N. Siddharth et al.[^17] focus on the setting where some factors $\ybf$ are interpretable and partly labeled. They modify the VAE framework with separation of latent variables and partial supervision on some latent variables. They first define an objective over $N$ unsupervised data points $\Dcal = \{\xbf^i\}_{i=1}^N$ and $M$ supervised data points $\Dsup = \{(\xbf^i, \ybf^i)\}_{i=1}^M$.
 
 $$
-\Lcal(\theta, \phi; \Dcal, \Dsup) = \sum_{i=1}^N \Lcal_{\mathrm{ELBO}}(\theta, \phi; \xbf^n) + \gamma \sum_{i=1}^M \Lcal_{\mathrm{sup}}(\theta, \phi; \xbf^m, \ybf^m)
+\Lcal(\theta, \phi; \Dcal, \Dsup) = \sum_{i=1}^N \ELBO(\theta, \phi; \xbf^n) + \gamma \sum_{i=1}^M \Lcal_{\mathrm{sup}}(\theta, \phi; \xbf^m, \ybf^m)
 $$
 
 The supervised loss is the sum of the ELBO loss assuming $\ybf$ is observed, and the cross entropy loss encouraging accurate inference of $\ybf$.
@@ -471,7 +473,7 @@ $$
 The estimated supervised loss is
 
 $$
-\widehat{\Lcal_{\mathrm{sup}}}(\theta, \phi; \xbf^m, \ybf^m) = \frac{1}{S}\sum_{s=1}^S \left[\frac{w^{m,s}}{Z^m} \log \frac{p_\theta(\xbf^m, \ybf^m, \zbf)}{q_\phi(\ybf^m,\zbf|\xbf^m)} + (1+\alpha) \log w^{m,s}\right]
+\widehat{\Lcal}_{\mathrm{sup}}(\theta, \phi; \xbf^m, \ybf^m) = \frac{1}{S}\sum_{s=1}^S \left[\frac{w^{m,s}}{Z^m} \log \frac{p_\theta(\xbf^m, \ybf^m, \zbf)}{q_\phi(\ybf^m,\zbf|\xbf^m)} + (1+\alpha) \log w^{m,s}\right]
 $$
 
 **Universal applicability of the framework.** The above framework is applicable to any conditional dependency structure, e.g., if we have
@@ -488,14 +490,48 @@ $$
 
 which is, again, the product of variational conditional probabilities of the supervised variables $\ybf$.
 
+![Separation of Latent Variables](../assets/images/DRL-sep-latent.png){: style="width: 90%" .image-center}
+
+**Demonstration of disentanglement on Yale B.** The recognition model (encoder) is defined as $q(r, l, i, s | x) = q(r|x)q(l|x)q(i|x)q(s|l, i)$, with $r$, $l$, $i$ and $s$ denote reflectance, lighting, identity and shading, respectively. Only $l$ and $i$ are supervised. The generative model (decoder) is fully factored, i.e. all latents are independent under the prior.
+
 ### Learning from Grouped observations
 
-![ML-VAE](../assets/images/DRL-ML-VAE.png){: style="width: 50%" .image-center}
+ML-VAE[^18] focuses on how to perform amortized inference in the context of non-i.i.d., grouped observations. The authors assume disjoint groups, where within each group, a factor of variation (or *content*) is shared among all observations, and each observation has an independent representation for its *style*.
 
-Accumulating Group Evidence using a Product of Normal densities
+Traditional stochastic variational inference (SVI) would easily extend to this setting, but suffers from expensive test-time inference since it does not perform amortized inference for observations or groups. VAE performs amortized inference for observations, but assumes i.i.d. observations and fails to incorporate the grouping information. ML-VAE attemps to extend the VAE framework to perform amortized inference on groups of observations.
+
+![ML-VAE](../assets/images/DRL-ML-VAE.png){: style="width: 90%" .image-center}
+
+First we assume independence between grouped observations
+
+$$\log p(\Xbf|\theta) = \sum_{G \in \Gcal} \log p(\Xbf_G|\theta)$$
+
+For each group, we derive the ELBO for group $G$ and maximize the sum of ELBOs over all groups.
+
 $$
-q(C_G = c | \Xbf_G = \xbf_G; \phi_c) \propto \prod_{i\in G} q(C_G = c | X_i = x_i; \phi_c)
+\begin{align}
+\ELBO(G; \theta, \phi_s, \phi_c) =& \E_{q_{\phi_c}(C_G|\Xbf)} \sum_{i \in G}  \E_{q_{\phi_s}(S_i|X_i)} \log p_\theta(X_i | C_G, S_i) - \\
+&\sum_{i \in G} \KL(q_{\phi_s}(S_i\Vert X_i)) -\KL(q_{\phi_c}(C_G|\Xbf_G) \Vert p(C_G))
+\end{align}
 $$
+
+**Accumulating Evidence with Product of Normal.** How do we infer the group content $q_{\phi_c}(C_G|\Xbf_G)$? The authors choose the product of normal distribution
+
+$$
+q_{\phi_c}(C_G = c | \Xbf_G = \xbf_G) \propto \prod_{i\in G} q_{\phi_c}(C_G = c | X_i = x_i)
+$$
+
+since the product of normal is still normal.
+
+$$
+\Sigma_G^{-1} = \sum_{i\in G} \Sigma_i^{-1} \qquad \mu_G^\top \Sigma_G^{-1} = \sum_{i \in G} \mu_i^\top \Sigma_i^{-1}
+$$
+
+Note that by increasing the number of observations in a group, the variance of the resulting distribution decreases. In other words, we accumulate evidence within a group to infer an accurate group content representation.
+
+![ML-VAE-demo](../assets/images/DRL-ML-VAE-demo.png){: style="width: 90%" .image-center}
+
+### Performing Latent Optimization
 
 - NIPS 2017, Learning Disentangled Representations with Semi-Supervised Deep Generative Models
 - AAAI 2018, ML-VAE - Multi-Level Variational Autoencoder - Learning Disentangled Representations from Grouped Observations
@@ -524,3 +560,4 @@ $$
 [^15]: X. Chen et al., [InfoGAN: Interpretable Representation Learning by Information Maximizing Generative Adversarial Nets](https://arxiv.org/abs/1606.03657), NeurIPS 2016.
 [^16]: Z. Lin et al., [InfoGAN-CR and ModelCentrality: Self-supervised Model Training and Selection for Disentangling GANs](https://arxiv.org/abs/1906.06034), ICML 2020.
 [^17]: N. Siddharth et al., [Learning Disentangled Representations with Semi-Supervised Deep Generative Models](https://arxiv.org/abs/1706.00400), NeurIPS 2017.
+[^18]: D. Bouchacourt; R. Tomioka; S. Nowozin, [Multi-Level Variational Autoencoder: Learning Disentangled Representations from Grouped Observations](https://arxiv.org/abs/1705.08841), AAAI 2018.

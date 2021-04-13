@@ -20,7 +20,7 @@ window.MathJax = {
     processEscapes: true,
     processEnvironments: true,
     packages: {
-      '[+]': ['ams']
+      '[+]': ['ams', 'boldsymbol']
     },
   },
   options: {
@@ -28,7 +28,7 @@ window.MathJax = {
     processHtmlClass: "arithmatex"
   },
   loader: {
-    load: ['[tex]/ams']
+    load: ['[tex]/ams', '[tex]/boldsymbol']
   }
 };
 

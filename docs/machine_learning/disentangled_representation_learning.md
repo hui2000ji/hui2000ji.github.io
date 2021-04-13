@@ -358,13 +358,13 @@ We can easily see that [$\beta$-VAE](#beta-vae) ($\lambda > 0$ and $\alpha = 1 -
 
 The authors empirically shows that the MMD variant perform on-par or better than the other two in terms of distance between the aggregated posterior $q_\phi(\zbf)$ and the prior $p(\zbf)$, distance between sample label distribution (obtained by a pretrained classifier) and the true label distribution, training speed and stablity, semi-supervised learning on 1k labeled data.
 
-### Information Maximizing GAN
+### Maximizing MI b/t Latent Code and GAN Samples
 
 Generative Adversarial Networks (GANs) are usually not used for representation learning since it does not have an encoder. But if one wants to generate samples in an interpretable and disentangled way, InfoGAN is one option.
 
 #### InfoGAN
 
-InfoGAN[^15] splits the latent vector of GAN into two parts: the incompressible noise $\zbf$, and the latent code $\cbf$ that target the salient structured semantic features of the data distribution. In its simplest form, we may assume a factored distribution for $\cbf$, given by $P(\cbf) = \prod_{i=1}^K P(c_i)$. To avoid the generator ignoring $\cbf$, a mutual information constraint is added between the latent code and the generated samples, making the overall objective ($Q$ will be introduced soon)
+InfoGAN[^15] splits the latent vector of GAN into two parts: the incompressible noise $\zbf$, and the latent code $\cbf$ that target the salient structured semantic features of the data distribution. In its simplest form, we may assume a factored distribution for $\cbf$, given by $P(\cbf) = \prod_{i=1}^K P(c_i)$. To avoid the generator ignoring $\cbf$, a mutual information constraint is added between the latent code and the generated samples, making the overall objective ($Q$ will be introduced below)
 
 $$
 \min_{G,Q} \max_D \E_{\xbf \sim p_{\mathrm{data}}}\log D(\xbf) + \E_{[\zbf;\cbf] \sim p_{\mathrm{noise}}} \log (1 - D(G(\zbf, \cbf))) - \lambda I(\cbf, G(\zbf, \cbf))
@@ -399,6 +399,8 @@ $$
 
 where $\bar{R} = \frac{1}{K}\sum_{j \in [K]} R^{(j)}$.
 
+![InfoGAN-CR](../assets/images/DRL-InfoGAN-CR.png){: style="width: 70%" .image-center}
+
 To implement the CR, the authors introduce a CR discriminator $H: \R^N \times \R^N \to \R^K$ that performs multi-way hypothesis testing, where $N$ is the input dimension and $K$ is the latent code dimension. The discriminator $H$ tries to identify which code $i$ was shared between the paired images. Both the generator $G$ and the discriminator $H$ try to make the $K$-way hypothesis testing successful. We add the following cross-entropy loss to the training objective
 
 $$
@@ -425,6 +427,12 @@ $$
 **Progressive training.** The authors propose to progressively narrow the *contrastive gap*, defined as $\min_{j \in [K]\backslash{i}}|c_j - c_j^\prime|$, during training. This means the varying dimensions of the contrastive samples would get smaller and smaller variance, making them look like the fixed dimension $i$ more and more and thus result in more and more difficult prediction for $H$.
 
 #### Elastic-InfoGAN
+
+### Leveraging the Hierarchy of Latent Variables
+
+#### StyleGAN
+
+#### Very Deep VAE
 
 ## The Impossibility of Unsupervised Disentanglement
 

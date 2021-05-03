@@ -116,8 +116,8 @@ $$
  & I_n(z_j;v_k) \\
 =& \E_{q(z_j, v_k)} \left( \log \sum_{n=1}^N q(z_j, v_k, n) - \log q(z_j) - \log p(v_k) \right) \\
 =& \E_{p(v_k)p(n^\prime|v_k)q(z_j|n^\prime)} \left( \log \sum_{n=1}^N p(v_k)p(n|v_k)q(z_j|n) - \log q(z_j) - \log p(v_k) \right) \\
-=& \E_{p(v_k)p(n^\prime|v_k)q(z_j|n^\prime)} \left( \log \sum_{n=1}^N p(n|v_k)q(z_j|n) \right) H(z_j) \\
-=& \E_{p(v_k)p(n^\prime|v_k)q(z_j|n^\prime)} \left( \log \sum_{n \in \Xcal_{v_k}} p(n|v_k)q(z_j|n) \right) H(z_j) \\
+=& \E_{p(v_k)p(n^\prime|v_k)q(z_j|n^\prime)} \left( \log \sum_{n=1}^N \frac{p(v_k)}{p(v_k)} p(n|v_k)q(z_j|n) \right) + H(z_j) \\
+=& \E_{p(v_k)p(n^\prime|v_k)q(z_j|n^\prime)} \left( \log \sum_{n \in \Xcal_{v_k}} p(n|v_k)q(z_j|n) \right) + H(z_j) \\
 \end{align}
 $$
 

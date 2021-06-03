@@ -63,7 +63,7 @@ $$
 $$
 
 where $\Tcal$ is a class of functions $T: \Xcal \to \R$.
-It is straightforward to see that the optimal $T^*(x) = f^\prime \left( \frac{p(x)}{q(x)} \right)$ (please do not confuse with conjugate function) by substituting the definition of $f^*$ and let $u$ be $\frac{p(x)}{q(x)}$
+It is straightforward to see that the optimal $T^*(x) = f^\prime \left( \frac{p(x)}{q(x)} \right)$ (please do not confuse with conjugate function) by substituting the definition of $f^*$ and let $t$ be $\frac{p(x)}{q(x)}$
 
 $$
 \Dcal_f(P \Vert Q) \ge \E_{p(x)}T(x) - \E_{q(x)} \left[ \frac{p(x)}{q(x)}T(x) - f\left(\frac{p(x)}{q(x)}\right) \right] = \Dcal_f(P \Vert Q)

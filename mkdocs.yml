@@ -6,6 +6,8 @@ theme:
   name: material
   features:
     - navigation.tabs
+    - navigation.top
+    # - toc.integrate
 nav:
   - Home: 'index.md'
   - CV: 'assets/documents/CV - Huiyu Cai.pdf'
@@ -35,6 +37,7 @@ extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/atom-one-light.min.css
   - assets/css/style.css
 extra:
+  disqus: https-hui2000ji-github-io
   social:
     - icon: fontawesome/solid/envelope
       link: mailto:hy_cai@pku.edu.cn
@@ -42,5 +45,9 @@ extra:
       link: https://twitter.com/hui2000ji
     - icon: fontawesome/brands/github
       link: https://github.com/hui2000ji
+    - icon: fontawesome/solid/user-graduate
+      link: https://scholar.google.com/citations?user=ZQ2VZ0sAAAAJ
+    - icon: fontawesome/brands/orcid
+      link: https://orcid.org/0000-0001-8506-537X
 plugins:
     - macros

@@ -12,11 +12,13 @@ under the supervision of <a href="https://jian-tang.com">Jian Tang</a>.
 I am interested in deep generative models, graph representation learning and their wide applications,
 such as drug discovery, single-cell modeling, etc.
 
+Feel free to [reach out](#index_bottom)!
+
 ## Selected Publications
 
 ![scETM](assets/images/scETM.png){: align=right style="width: 25%" }
 
-- [**Learning interpretable cellular and gene signature embeddings from single-cell transcriptomic data**](https://www.biorxiv.org/content/10.1101/2021.01.13.426593v1.full)<br><em>bioRxiv</em>, 2020 &emsp;[code](https://github.com/hui2000ji/scETM)<br><a href="https://yifnzhao.github.io/">Yifan Zhao</a>\*, <strong>Huiyu Cai</strong>\*, <a href="https://oxer11.github.io/">Zuobai Zhang</a>, <a href="https://jian-tang.com">Jian Tang</a>, <a href="https://www.cs.mcgill.ca/~yueli/">Yue Li</a><br> *<em>Equal contribution</em>
+- [**Learning interpretable cellular and gene signature embeddings from single-cell transcriptomic data**](https://www.biorxiv.org/content/10.1101/2021.01.13.426593v2)<br><em>bioRxiv</em>, 2020 &emsp;[code](https://github.com/hui2000ji/scETM)<br><a href="https://yifnzhao.github.io/">Yifan Zhao</a>\*, <strong>Huiyu Cai</strong>\*, <a href="https://oxer11.github.io/">Zuobai Zhang</a>, <a href="https://jian-tang.com">Jian Tang</a>, <a href="https://www.cs.mcgill.ca/~yueli/">Yue Li</a><br> *<em>Equal contribution</em>
 
 ![multi-modal sarcasm detection](assets/images/ACL_2019.jpg){: align=right style="width: 25%" }
 
@@ -133,3 +135,5 @@ Click on a tile to change the accent color:
   })
   document.getElementsByClassName('md-nav__title')[1].click()
 </script>
+
+<div id="index_bottom"></div>

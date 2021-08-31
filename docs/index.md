@@ -6,7 +6,7 @@ I am a fourth-year undergraduate at the <a href="http://www.cis.pku.edu.cn/">Dep
 <a href="http://www.pku.edu.cn">Peking University</a>.
 I was previously a member of the Language Computing and Web Mining Group,
 led by <a href="https://wanxiaojun.github.io/">Prof. Xiaojun Wan</a>.
-This autumn, I will continue my studies at <a href="https://mila.quebec/en">MILA</a>
+This autumn, I will pursue my PhD degree at <a href="https://mila.quebec/en">MILA</a>
 under the supervision of <a href="https://jian-tang.com">Jian Tang</a>.
 
 I am interested in deep generative models, graph representation learning and their wide applications,
@@ -18,7 +18,7 @@ Feel free to [reach out](#index_bottom)!
 
 ![scETM](assets/images/scETM.png){: align=right style="width: 25%" }
 
-- [**Learning interpretable cellular and gene signature embeddings from single-cell transcriptomic data**](https://www.biorxiv.org/content/10.1101/2021.01.13.426593v2)<br><em>bioRxiv</em>, 2020 &emsp;[code](https://github.com/hui2000ji/scETM)<br><a href="https://yifnzhao.github.io/">Yifan Zhao</a>\*, <strong>Huiyu Cai</strong>\*, <a href="https://oxer11.github.io/">Zuobai Zhang</a>, <a href="https://jian-tang.com">Jian Tang</a>, <a href="https://www.cs.mcgill.ca/~yueli/">Yue Li</a><br> *<em>Equal contribution</em>
+- [**Learning interpretable cellular and gene signature embeddings from single-cell transcriptomic data**](https://www.biorxiv.org/content/10.1101/2021.01.13.426593v2)<br><em>Nature Communications</em>, 2021 &emsp;[code](https://github.com/hui2000ji/scETM)<br><a href="https://yifnzhao.github.io/">Yifan Zhao</a>\*, <strong>Huiyu Cai</strong>\*, <a href="https://oxer11.github.io/">Zuobai Zhang</a>, <a href="https://jian-tang.com">Jian Tang</a>, <a href="https://www.cs.mcgill.ca/~yueli/">Yue Li</a><br> *<em>Equal contribution</em>
 
 ![multi-modal sarcasm detection](assets/images/ACL_2019.jpg){: align=right style="width: 25%" }
 

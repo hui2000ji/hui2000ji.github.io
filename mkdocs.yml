@@ -8,6 +8,7 @@ theme:
   features:
     - navigation.tabs
     - navigation.top
+    - search.highlight
     # - toc.integrate
 nav:
   - Home: 'index.md'
@@ -52,3 +53,4 @@ extra:
       link: https://orcid.org/0000-0001-8506-537X
 plugins:
     - macros
+    - search

@@ -2,19 +2,17 @@
 
 ![profile photo](assets/images/photo.jpg){: align=right style="width: 25%" }
 
-I am a fourth-year undergraduate at the <a href="http://www.cis.pku.edu.cn/">Department of Machine Intelligence</a>,
-<a href="http://www.pku.edu.cn">Peking University</a>.
+I am a first-year PhD student at <a href="https://mila.quebec/en">Mila - Quebec AI Institute</a> and <a href="https://diro.umontreal.ca/english/home/">Department of Computer Science and Operations Research</a>, <a href="https://www.umontreal.ca/en/">University of Montreal</a>, supervised by Prof. <a href="https://jian-tang.com">Jian Tang</a>. I graduated from the <a href="http://www.cis.pku.edu.cn/">Department of Machine Intelligence</a>,
+<a href="http://www.pku.edu.cn">Peking University</a> as an Excellent Graduate in Beijing.
 I was previously a member of the Language Computing and Web Mining Group,
 led by <a href="https://wanxiaojun.github.io/">Prof. Xiaojun Wan</a>.
-This autumn, I will pursue my PhD degree at <a href="https://mila.quebec/en">MILA</a>
-under the supervision of <a href="https://jian-tang.com">Jian Tang</a>.
 
 I am interested in deep generative models, graph representation learning and their wide applications,
 such as drug discovery, single-cell modeling, etc.
 
 Feel free to [reach out](#index_bottom)!
 
-## Selected Publications
+## Publications
 
 ![scETM](assets/images/scETM.png){: align=right style="width: 25%" }
 

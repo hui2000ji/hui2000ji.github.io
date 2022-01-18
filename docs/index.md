@@ -3,22 +3,26 @@
 ![profile photo](assets/images/photo.jpg){: align=right style="width: 25%" }
 
 I am a first-year PhD student at <a href="https://mila.quebec/en">Mila - Quebec AI Institute</a> and <a href="https://diro.umontreal.ca/english/home/">Department of Computer Science and Operations Research</a>, <a href="https://www.umontreal.ca/en/">University of Montreal</a>, supervised by Prof. <a href="https://jian-tang.com">Jian Tang</a>. I graduated from the <a href="http://www.cis.pku.edu.cn/">Department of Machine Intelligence</a>,
-<a href="http://www.pku.edu.cn">Peking University</a> as an Excellent Graduate in Beijing.
+<a href="http://www.pku.edu.cn">Peking University</a> as an *Excellent Graduate in Beijing*.
 I was previously a member of the Language Computing and Web Mining Group,
 led by <a href="https://wanxiaojun.github.io/">Prof. Xiaojun Wan</a>.
 
 I am interested in deep generative models, graph representation learning and their wide applications,
 such as drug discovery, single-cell modeling, etc.
 
-Feel free to [reach out](#index_bottom)!
+Feel free to reach out (links at [webpage footer](#index_bottom))!
 
 ## Publications
 
-![scETM](assets/images/scETM.png){: align=right style="width: 25%" }
+![scETM](assets/images/scETM.png){: align=right style="width: 23%" }
 
 - [**Learning interpretable cellular and gene signature embeddings from single-cell transcriptomic data**](https://www.biorxiv.org/content/10.1101/2021.01.13.426593v2)<br><em>Nature Communications</em>, 2021 &emsp;[code](https://github.com/hui2000ji/scETM)<br><a href="https://yifnzhao.github.io/">Yifan Zhao</a>\*, <strong>Huiyu Cai</strong>\*, <a href="https://oxer11.github.io/">Zuobai Zhang</a>, <a href="https://jian-tang.com">Jian Tang</a>, <a href="https://www.cs.mcgill.ca/~yueli/">Yue Li</a><br> *<em>Equal contribution</em>
 
-![multi-modal sarcasm detection](assets/images/ACL_2019.jpg){: align=right style="width: 25%" }
+![SGNN-EBM](assets/images/SGNN-EBM.png){: align=right style="width: 23%" }
+
+- [**Structured Multi-task Learning for Molecular Property Prediction**](http://aistats.org/aistats2022/)<br><em>AISTATS</em>, 2022<br><a href="https://chao1224.github.io/">Shengchao Liu</a>, <a href="https://mnqu.github.io/">Meng Qu</a>, <a href="https://oxer11.github.io/">Zuobai Zhang</a>, <strong>Huiyu Cai</strong>, <a href="https://jian-tang.com">Jian Tang</a>.
+
+![multi-modal sarcasm detection](assets/images/ACL_2019.jpg){: align=right style="width: 23%" }
 
 - [**Multi-Modal Sarcasm Detection in Twitter with Hierarchical Fusion Model**](https://www.aclweb.org/anthology/P19-1239/) <br><em>ACL</em>, 2019 &emsp;[data](https://github.com/headacheboy/data-of-multimodal-sarcasm-detection)<br>Yitao Cai, <strong>Huiyu Cai</strong>, <a href="https://wanxiaojun.github.io/">Xiaojun Wan</a>
 
@@ -31,7 +35,7 @@ Feel free to [reach out](#index_bottom)!
 - **[Mahjong](https://www.botzone.org.cn/game/Mahjong-GB) AI Based on Deep Supervised Learning** (Mar. 2019 - Jun. 2019)
 - **Rule-based [Doudizhu](https://www.botzone.org.cn/game/FightTheLandlord2) & [Ataxx](https://www.botzone.org.cn/game/Ataxx) & [Reversi](https://www.botzone.org.cn/game/Reversi) & [pysc2-minimap](https://github.com/deepmind/pysc2) AI** (Oct. 2017 - May. 2019)
 
-## Change Color Palette
+## Color palette for this site
 
 Click on a tile to change the color scheme:
 

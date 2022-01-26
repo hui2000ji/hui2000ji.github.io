@@ -14,21 +14,29 @@ Feel free to reach out (links at [webpage footer](#index_bottom))!
 
 ## Publications
 
-![scETM](assets/images/scETM.png){: align=right style="width: 23%" }
+### 2022
 
-- [**Learning interpretable cellular and gene signature embeddings from single-cell transcriptomic data**](https://www.biorxiv.org/content/10.1101/2021.01.13.426593v2)<br><em>Nature Communications</em>, 2021 &emsp;[code](https://github.com/hui2000ji/scETM)<br><a href="https://yifnzhao.github.io/">Yifan Zhao</a>\*, <strong>Huiyu Cai</strong>\*, <a href="https://oxer11.github.io/">Zuobai Zhang</a>, <a href="https://jian-tang.com">Jian Tang</a>, <a href="https://www.cs.mcgill.ca/~yueli/">Yue Li</a><br> *<em>Equal contribution</em>
+![SMN](assets/images/SMN.png){: align=right style="width: 23%" }
+
+- [**Neural Structured Prediction for Inductive Node Classification**](https://openreview.net/forum?id=YWNAX0caEjI)<br><em>ICLR</em>, 2022<br><a href="https://mnqu.github.io/">Meng Qu</a>, <strong>Huiyu Cai</strong>, <a href="https://jian-tang.com">Jian Tang</a>.
 
 ![SGNN-EBM](assets/images/SGNN-EBM.png){: align=right style="width: 23%" }
 
 - [**Structured Multi-task Learning for Molecular Property Prediction**](http://aistats.org/aistats2022/)<br><em>AISTATS</em>, 2022<br><a href="https://chao1224.github.io/">Shengchao Liu</a>, <a href="https://mnqu.github.io/">Meng Qu</a>, <a href="https://oxer11.github.io/">Zuobai Zhang</a>, <strong>Huiyu Cai</strong>, <a href="https://jian-tang.com">Jian Tang</a>.
 
+### 2021 and before
+
+![scETM](assets/images/scETM.png){: align=right style="width: 23%" }
+
+- [**Learning interpretable cellular and gene signature embeddings from single-cell transcriptomic data**](https://www.biorxiv.org/content/10.1101/2021.01.13.426593v2)<br><em>Nature Communications</em>, 2021 &emsp;[code](https://github.com/hui2000ji/scETM)<br><a href="https://yifnzhao.github.io/">Yifan Zhao</a>\*, <strong>Huiyu Cai</strong>\*, <a href="https://oxer11.github.io/">Zuobai Zhang</a>, <a href="https://jian-tang.com">Jian Tang</a>, <a href="https://www.cs.mcgill.ca/~yueli/">Yue Li</a><br> *<em>Equal contribution</em>
+
 ![multi-modal sarcasm detection](assets/images/ACL_2019.jpg){: align=right style="width: 23%" }
 
 - [**Multi-Modal Sarcasm Detection in Twitter with Hierarchical Fusion Model**](https://www.aclweb.org/anthology/P19-1239/) <br><em>ACL</em>, 2019 &emsp;[data](https://github.com/headacheboy/data-of-multimodal-sarcasm-detection)<br>Yitao Cai, <strong>Huiyu Cai</strong>, <a href="https://wanxiaojun.github.io/">Xiaojun Wan</a>
 
-## For-Fun Projects
+## Projects
+- [**TorchDrug: A powerful and flexible machine learning platform for drug discovery**](https://torchdrug.ai/) (Ongoing development)
 - [**Implementation of the EWLS Algorithm for the Maximum Clique Problem**](assets/codes/EWLS.cpp) (Dec. 2020 - Jan. 2021)
-- [**Music Source Separation: Theory and Applications**](assets/documents/Music%20Source%20Separation%20-%20Report.pdf) (Apr. 2020 - Jun. 2020)
 - [**Raiden Game Implementation in Java**](https://github.com/hui2000ji/RaidenGame) (Jan. 2020 - Jun. 2020)
 - [**Fine-grained Face Manipulation via DLGAN**](https://github.com/sunyaofeng8/AI-Intro) (Oct. 2019 - Jan. 2020)
 - **Bird Sound Classification with CNN** (Mar. 2019 - Jun. 2019)

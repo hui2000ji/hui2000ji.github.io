@@ -5,6 +5,8 @@ repo_name: 'hui2000ji/hui2000ji.github.io'
 repo_url: 'https://github.com/hui2000ji/hui2000ji.github.io'
 theme:
   name: material
+  font:
+    text: Nunito
   features:
     - navigation.tabs
     - navigation.top
@@ -18,8 +20,8 @@ nav:
     - Graph Neural Networks: 'machine_learning/graph_neural_networks.md'
     - Representation Learning with Mutual Information Maximization: 'machine_learning/representation_learning_with_mutual_information_maximization.md'
     - Disentangled Representation Learning: 'machine_learning/disentangled_representation_learning.md'
-  - Single Cell:
-    - Review: 'single_cell/review.md'
+  # - Single Cell:
+  #   - Review: 'single_cell/review.md'
   # - Python Tutorial: 'python-tutorial/index.md'
 markdown_extensions:
   - admonition
@@ -39,7 +41,7 @@ extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/atom-one-light.min.css
   - assets/css/style.css
 extra:
-  disqus: https-hui2000ji-github-io
+  # disqus: https-hui2000ji-github-io
   social:
     - icon: fontawesome/solid/envelope
       link: mailto:hy_cai@pku.edu.cn

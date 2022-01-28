@@ -18,7 +18,7 @@ Feel free to reach out (links at [webpage footer](#index_bottom))!
 
 ![SMN](assets/images/SMN.png){: align=right style="width: 23%" }
 
-- [**Neural Structured Prediction for Inductive Node Classification**](https://openreview.net/forum?id=YWNAX0caEjI)<br><em>ICLR</em>, 2022<br><a href="https://mnqu.github.io/">Meng Qu</a>, <strong>Huiyu Cai</strong>, <a href="https://jian-tang.com">Jian Tang</a>.
+- [**Neural Structured Prediction for Inductive Node Classification**](https://openreview.net/forum?id=YWNAX0caEjI)<br><em>ICLR</em>, 2022 (oral)<br><a href="https://mnqu.github.io/">Meng Qu</a>, <strong>Huiyu Cai</strong>, <a href="https://jian-tang.com">Jian Tang</a>.
 
 ![SGNN-EBM](assets/images/SGNN-EBM.png){: align=right style="width: 23%" }
 
@@ -35,8 +35,9 @@ Feel free to reach out (links at [webpage footer](#index_bottom))!
 - [**Multi-Modal Sarcasm Detection in Twitter with Hierarchical Fusion Model**](https://www.aclweb.org/anthology/P19-1239/) <br><em>ACL</em>, 2019 &emsp;[data](https://github.com/headacheboy/data-of-multimodal-sarcasm-detection)<br>Yitao Cai, <strong>Huiyu Cai</strong>, <a href="https://wanxiaojun.github.io/">Xiaojun Wan</a>
 
 ## Projects
-- [**TorchDrug: A powerful and flexible machine learning platform for drug discovery**](https://torchdrug.ai/) (Ongoing development)
+- [**TorchDrug: A powerful and flexible machine learning platform for drug discovery**](https://torchdrug.ai/) (Nov. 2021 - now)
 - [**Implementation of the EWLS Algorithm for the Maximum Clique Problem**](assets/codes/EWLS.cpp) (Dec. 2020 - Jan. 2021)
+- **Music Source Separation: Theory and Applications** (Apr. 2020 - Jun. 2020)
 - [**Raiden Game Implementation in Java**](https://github.com/hui2000ji/RaidenGame) (Jan. 2020 - Jun. 2020)
 - [**Fine-grained Face Manipulation via DLGAN**](https://github.com/sunyaofeng8/AI-Intro) (Oct. 2019 - Jan. 2020)
 - **Bird Sound Classification with CNN** (Mar. 2019 - Jun. 2019)

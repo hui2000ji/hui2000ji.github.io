@@ -176,7 +176,7 @@ The integral $Z(\alpha)$ is rarely analytically tractable, and if the data is hi
 
 $$\log p_\mathrm{m}(\cdot; \theta) = \log p_\mathrm{m}^0(\cdot; \alpha) + c \quad \text{where} \ \theta = {\alpha, c}.$$
 
-Performing Maxmimum Likelihood Estimation (MLE) on this objective is not feasible as $c$ would be pushed to infinity. Instead we learn to discriminate between the data $\mathbf{x}$ and some artificially generated noise $\mathbf{y} \sim p_{\mathrm{n}}$. With $T$ positive (data) and $T$ negative (noise) examples, we define the NCE objective as
+Performing Maxmimum Likelihood Estimation (MLE) on this objective is not feasible as $c$ would be pushed to infinity. Instead we learn to discriminate between the data $\mathbf{x}$ and some artificially generated noise $\mathbf{y} \sim p_{\mathrm{n}}$. With $T$ positive (data) and $T$ negative (noise) examples, we aim to correctly classify each of them, and thus define the NCE objective as
 
 $$
 \begin{align}

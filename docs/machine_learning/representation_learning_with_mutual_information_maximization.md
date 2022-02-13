@@ -1,3 +1,7 @@
+---
+template: blog.html
+---
+
 # Representation Learning with Mutual Information Maximization
 
 ## $f$-GAN

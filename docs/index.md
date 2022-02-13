@@ -44,9 +44,9 @@ Feel free to reach out (links at [webpage footer](#index_bottom))!
 - **[Mahjong](https://www.botzone.org.cn/game/Mahjong-GB) AI Based on Deep Supervised Learning** (Mar. 2019 - Jun. 2019)
 - **Rule-based [Doudizhu](https://www.botzone.org.cn/game/FightTheLandlord2) & [Ataxx](https://www.botzone.org.cn/game/Ataxx) & [Reversi](https://www.botzone.org.cn/game/Reversi) & [pysc2-minimap](https://github.com/deepmind/pysc2) AI** (Oct. 2017 - May. 2019)
 
-## Color palette for this site
+<!-- ## Color Palette
 
-Click on a tile to change the color scheme:
+Click on a tile to change the **color scheme**:
 
 <div class="tx-switch">
   <button data-md-color-scheme="default"><code>default</code></button>
@@ -65,7 +65,7 @@ Click on a tile to change the color scheme:
   })
 </script>
 
-Click on a tile to change the primary color:
+Click on a tile to change the **primary color**:
 
 <style>
   .md-typeset button[data-md-color-primary] > code {
@@ -108,7 +108,7 @@ Click on a tile to change the primary color:
   })
 </script>
 
-Click on a tile to change the accent color:
+Click on a tile to change the **accent color**:
 
 <style>
   .md-typeset button[data-md-color-accent] > code {
@@ -145,6 +145,6 @@ Click on a tile to change the accent color:
     })
   })
   document.getElementsByClassName('md-nav__title')[1].click()
-</script>
+</script> -->
 
 <div id="index_bottom"></div>

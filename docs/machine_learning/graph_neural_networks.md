@@ -1,3 +1,7 @@
+---
+template: blog.html
+---
+
 # Graph Neural Networks
 
 ## Preliminaries

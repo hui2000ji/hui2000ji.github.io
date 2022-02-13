@@ -12,6 +12,18 @@ theme:
     - navigation.top
     - search.highlight
     # - toc.integrate
+  custom_dir: overrides
+  palette: 
+    - scheme: default
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to dark mode
+    - scheme: slate
+      primary: deep orange
+      accent: deep orange
+      toggle:
+        icon: material/lightbulb
+        name: Switch to light mode
 nav:
   - Home: 'index.md'
   - CV: 'assets/documents/CV - Huiyu Cai.pdf'
@@ -20,6 +32,7 @@ nav:
     - Graph Neural Networks: 'machine_learning/graph_neural_networks.md'
     - Representation Learning with Mutual Information Maximization: 'machine_learning/representation_learning_with_mutual_information_maximization.md'
     - Disentangled Representation Learning: 'machine_learning/disentangled_representation_learning.md'
+    - Equivariant GNNs: 'machine_learning/equivariant_gnns.md'
   # - Single Cell:
   #   - Review: 'single_cell/review.md'
   # - Python Tutorial: 'python-tutorial/index.md'

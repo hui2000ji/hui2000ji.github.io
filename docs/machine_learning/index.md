@@ -1,3 +1,7 @@
+---
+template: blog.html
+---
+
 # Machine Learning
 
 Here are my posts about machine learning.

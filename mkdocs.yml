@@ -37,6 +37,7 @@ nav:
   #   - Review: 'single_cell/review.md'
   # - Python Tutorial: 'python-tutorial/index.md'
 markdown_extensions:
+  - md_in_html
   - admonition
   - abbr
   - footnotes

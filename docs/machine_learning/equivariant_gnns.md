@@ -6,7 +6,7 @@ template: blog.html
 
 ## Preliminaries: Group Theory and Equivariance
 
-This part is based on the [exellent materials on equivariant neural networks by Andrew White](https://dmol.pub/dl/Equivariant.html).
+This section is based on the [exellent materials on equivariant neural networks by Andrew White](https://dmol.pub/dl/Equivariant.html).
 
 - **Group** $G = \langle V, \cdot \rangle$: a set $V$ equipped with a binary operation $\cdot$ that satisfies closure, associativity, identity and inverse properties.
 
@@ -57,7 +57,7 @@ This part is based on the [exellent materials on equivariant neural networks by 
     "Transform then encode" has the same effect as "encode then transform".
 
 - **$G$-Equivariant Convolution Theorem**: A neural network layer (linear map) $\phi$ is $G$-equivariant if and only if its form is a convolution operator $*$:
-    $$\newcommand{\dd}{\mathrm{d}}
+    $$\newcommand{\dd}{\,\mathrm{d}}
     \phi(f)(u) = (f * \omega)(u) = \int_G f^{\uparrow G}(u g^{-1}) \omega^{\uparrow G}(g) \dd \mu(g)
     $$
     where $f: H \to \R^n$ and $\omega: H^\prime \to \R^n$ are functions on quotient spaces $H$ and $H^\prime$, and $\mu$ is the group Haar measure.
@@ -126,12 +126,17 @@ This part is based on the [exellent materials on equivariant neural networks by 
 
     - We can now replace convolutions of group functions with products of their irreducible representations. This is critical, since SO(3) convolutions would require a series of spherical integrals.
 
-    - The first columns of the Wigner D-matrices are propto the spherical harmonics: \(D_{m0}^{l}(\alpha, \beta, \gamma) = \sqrt{\frac{4\pi}{2l+1}} {Y_l^M}^{\dagger}(\beta, \alpha)\).
+    - The first columns of the Wigner D-matrices are propto the spherical harmonics: \(D_{m0}^{l}(\alpha, \beta, \gamma) = \sqrt{2l+1} {Y_l^m}(\alpha, \beta)\).
+
+<figure markdown>
+<img alt="Real Spherical Harmonics" src="https://upload.wikimedia.org/wikipedia/commons/7/74/Real_Spherical_Harmonics_Figure_Table_Complex_Radial_Magnitude.gif" style="width: 80%; display: block; margin-left: auto; margin-right: auto">
+<figcaption style="max-width: 80%">Spherical harmonics visualized on polar plots. The radius of the plot at a given polar and azimuthal angle represents the magnitude of the spherical harmonic, and the hue represents the phase.</figcaption>
+</figure>
 
 ## Tensor-Field Networks
 Tensor-field network (TFN)[^1] is a locally equivariant convolutional neural network.
 
-### Layer overview
+### Layer Overview
 
 Tensor field networks act on points with associated features.
 
@@ -159,48 +164,63 @@ $$
 Y^{(l)}_m\left(\cR(g)\hat{\vr}\right) = \sum_{m^\prime=-l}^lD^{(l)}_{mm^\prime}(g)Y_{m^\prime}^{(l)}(\hat{\vr})
 $$
 
-### Point convolution
+### Point Convolution
 
 **Notation** &emsp; \(\vr\) is the coordinates of an input point relative to the convolution center, \(\hat{\vr}\) is \(\vr\) normalized to unit length, and \(r = \Vert\vr\Vert_2\).
 
-**Convolution filters** &emsp; With \(l_i\) and \(l_f\) as the rotation orders of the input and filter, respectively, we define the following rotation-equivariant filter:
+**Convolution filters** &emsp; With \(l_i\) and \(l_f\) as the rotation orders of the input and filter, respectively, we define the following rotation-equivariant filter \(F^{(l_f, l_i)}: \R^3 \to \R^{(2l_f+1) \times (2l_i+1)}\):
 
 $$
-F_{cm}^{(l_f, l_i)}(\vr) = R_c^{(l_f, l_i)}(r)Y_m^{l_f}(\hat{\vr})
+F_{cm}^{(l_f, l_i)}(\vr) = R_c^{(l_f, l_i)}(r)Y_m^{(l_f)}(\hat{\vr})
 $$
 
-where \(R_c^{(l_f, l_i)}\) is a learnable kernel.
+where \(R_c^{(l_f, l_i)}: \R_+ \to \R\) is a learnable kernel.
 
 **Combining representations w/ tensor products** &emsp; We need the layer output to also be a representation of SO(3), thus we have to combine the filter outputs.
 
 The tensor product of two irreps \(u^{l_1}\) and \(v^{l_2}\) of orders \(l_1\) and \(l_2\) can be calculated as
 
 $$
-(u \otimes v)_m^{(l)} = \sum_{m_1=-l_1}^{l_1}\sum_{m_2=-l_2}^{l_2} C^{l,m}_{(l_1, m_1)(l_2, m_2)}u_{m_1}^{(l_1)}v_{m_2}^{(l_2)}
+(u \otimes v)_m^{(l)} = \sum_{m_1=-l_1}^{l_1}\sum_{m_2=-l_2}^{l_2} C^{(l, m)}_{(l_1, m_1)(l_2, m_2)}u_{m_1}^{(l_1)}v_{m_2}^{(l_2)}
 $$
 
-where the \(C\)s are Clebsch-Gordan coefficients. \((u \otimes v)_m^{(l)}\) is non-zero only when \(|l_1-l_2| \le l \le l_1+l_2\) and \(m = m_1 + m_2\).
+where the \(C^{(l, l_1, l_2)} \in \R^{(2l+1) \times (2l_1+1) \times (2l_2+1)}\)s are Clebsch-Gordan coefficients. \((u \otimes v)_m^{(l)}\) is non-zero only when \(|l_1-l_2| \le l \le l_1+l_2\) and \(m = m_1 + m_2\).
 
 
 !!! note "Clebsch-Gordan coefficients"
-    For \(0\otimes 0 \to 0\), \(C^{0, 0}_{(0, 0)(0, 0)} \propto 1\), which correspondns to scalar multiplication.
+    For \(0\otimes 0 \to 0\), \(C^{(0, 0)}_{(0, 0)(0, 0)} \propto 1\), which correspondns to scalar multiplication.
 
-    For \(1\otimes 0 \to 1\), \(C^{1, i}_{(1, j)(0, 0)} \propto \delta_{ij}\), which corresponds to scalar multiplication of a vector.
+    For \(1\otimes 0 \to 1\), \(C^{(1, i)}_{(1, j)(0, 0)} \propto \delta_{ij}\), which corresponds to scalar multiplication of a vector.
 
     For \(1\otimes 1 \to 0\), \(C^{(0, 0)}_{(1, i)(1, j)} \propto \delta_{ij}\), which corresponds to dot product of vectors.
 
     For \(1\otimes 1 \to 1\), \(C^{(1, i)}_{(1, j)(1, k)} \propto \epsilon_{ijk}\), which corresponds to cross products of vectors.
 
-**Layer Definition** &emsp; A point convolution of an \(l_f\) filter on an \(l_i\) input yields \(2\min(l_i,l_f)+1\) different outputs at rotation orders \(l_o\) (b/t \(|l_i - l_f|\) and \((l_i+l_f)\), inclusive):
+**Layer Definition** &emsp; A point convolution of a type-\(l_f\) filter on a type-\(l_i\) input yields outputs at \(2\min(l_i,l_f)+1\) different rotation orders \(l_o\) (b/t \(|l_i - l_f|\) and \((l_i+l_f)\), inclusive):
 
 $$
-\cL_{acm_o}^{(l_o)}(\vr_a, V_{acm_i}^{(l_i)}) = \sum_{m_f, m_i}C^{l_o, m_o}_{(l_f, m_f)(l_i, m_i)}\sum_{b \in S} F_{cm_f}^{(l_f, l_i)}(\vr_a - \vr_b)V_{bcm_i}^{(l_i)}.
+\cL_{acm_o}^{(l_o)}(\vr_a, V_{acm_i}^{(l_i)}) = \sum_{m_f, m_i}C^{(l_o, m_o)}_{(l_f, m_f)(l_i, m_i)}\sum_{b \in S} F_{cm_f}^{(l_f, l_i)}(\vr_a - \vr_b)V_{bcm_i}^{(l_i)}.
 $$
 
-### Self-interaction
+!!! note "What are we convolving?"
+    We are convolving the kernel function \(W^{(l_o, l_i)}\) with the input function \(f^{(l_i)}\), where the latter is represented as Dirac function taking non-zero values on \(x_a\)'s only, *i.e.* \(f^{(l_i)}(\vr) = \sum_a V^{(l_i)}_{a} \delta(\vr - \vr_a)\):
 
-Self-interaction layers mix the components of the feature vectors at each point together.
-They are analogous to 1x1 convolutions, and they act like \(l = 0\) (scalar) filters.
+    \[
+    \cL^{l_o}_a(\vr_a, V^{(l_i)}) = \int_{x^\prime}W^{(l_o, l_i)}(\vr^\prime - \vr_a)f^{(l_i)}(\vr) \dd \vr^\prime = \sum_{b \in S} W^{(l_o, l_i)}(\vr^\prime - \vr_a) V^{(l_i)}_{a}.
+    \]
+
+    The kernel lies in the span of an equivariant basis \(\{W^{(l_o, l_i)}_{l_f}\}_{l_f=|l_o-l_i|}^{l_o+l_i}\):
+
+    \[
+    W^{(l_o, l_i)}(\vr) = \sum_{l_f}^{} R(r)W^{(l_o, l_i)}_{l_f}(\hat{\vr}),
+    \qquad \text{where}\ 
+    W^{(l_o, l_i)}_{l_f}(\hat{\vr}) = \sum_{m_f} Y_{m_f}^{(l_f)}(\hat{\vr})C^{(l_o, l_i, l_f)}_{\cdot \cdot m_f}.
+    \]
+
+### Self-Interaction
+
+Self-interaction layers mix the components of the feature vectors of the same type within each point together.
+They are analogous to 1x1 convolutions, and they act like \(l_f = 0\) (scalar) filters.
 Suppose \(c^\prime\) and \(c\) are the input and output dimensions,
 
 $$
@@ -212,7 +232,7 @@ Thus, the \(D\)-matrices commute with the weight matrix \(W\), i.e. this layer i
 
 Equivariance for \(l = 0\) is straightforward because \(D(0) = 1\) (we may also use biases in this case).
 
-### Non-linearity
+### Non-Linearity
 
 The non-linearity layer acts as a scalar transform in the \(l\) spaces, *i.e.* along the \(m\) dimension.
 
@@ -229,8 +249,60 @@ Since \(D\) unitary, \(\Vert D(g)V\Vert = \Vert V\Vert\), *i.e.* this layer is e
 
 ## SE(3)-Transformers
 
-SE(3)-Transformer[^2] is an equivariant attention-based model for 3D point cloud / graph data. During self-attention, the attention weights are invariant w.r.t. input rototranslation, and the value embeddings are equivariant w.r.t rototranslation.
+SE(3)-Transformer[^2] is an equivariant attention-based model for 3D point cloud / graph data. It is basically a GAT with TFN weight matrices.
 
+Compared to [TFN](#tensor-field-networks), SE(3)-Transformers (1) allow a natural handling of edge features, (2) allow a nonlinear equivariant layer and (3) relieve the strong angular constraints on the filter (TFN filters only have learnable parameters in the angular direction).
+
+<figure markdown>
+![SE3-Transformer](../assets/images/SE3-Transformer.png){: style="width: 80%" .image-center }
+<figcaption style="max-width: 80%">SE(3) Transformer layer.</figcaption>
+</figure>
+
+### Layer Overview
+
+Recall that, given rotation orders \(k\) and \(l\), an \(k\)-to-\(l\) TFN layer (w/o nonlinearity) can be written as
+
+\[\newcommand{\mW}{\mathbf{W}}\newcommand{\mQ}{\mathbf{Q}} \newcommand{\vf}{\mathbf{f}}
+\vf^{l}_{\text{out}, i} = w^{ll}\vf^l_{\text{in}, i} + \sum_{k \ge 0} \sum_{j \ne i}^n \mW^{lk}(\vx_j - \vx_i) \vf^k_{\text{in}, j}
+\]
+
+where \(\mW^{lk}(\vx) = \sum_{J=|k-l|}^{k+l}R^{lk}_J(\Vert\vx\Vert)\mW_J^{lk}(\vx)\) and \(\mW_J^{lk}(\vx) = \sum_{m=-J}^J Y^J_m(\hat{\vx})\mQ^{lkJ}_{m}\). Here \(k\), \(l\), \(J\) correspond to \(l_i\), \(l_o\) and \(l_f\) in the TFN notations. The first term denotes self-interaction, or 1x1 convolution, and the second term denotes convolution.
+
+The SE(3)-Transformer layer is defined as (\(\bigoplus\) is the direct sum, *i.e.* vector concatenation):
+
+\begin{align}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\mS}{\mathbf{S}}
+\newcommand{\vq}{\mathbf{q}}
+\newcommand{\vk}{\mathbf{k}}
+\DeclareMathOperator{\softmax}{softmax}
+\vq_i &= \bigoplus_{l \ge 0}\sum_{k \ge 0}\mW_Q^{lk} \vf_{\text{in}, i}^k \\
+\vk_{ij} &= \bigoplus_{l \ge 0}\sum_{k \ge 0} \mW_K^{lk}(\vx_j-\vx_i) \vf^k_{\text{in}, j} \\
+\alpha_{ij} &= \underset{j^\prime \in \cN_i \backslash i}{\softmax} \left( \vq_i^\top \vk_{ij} \right) \\
+\vf^{l}_{\text{out}, i} &= \mW^{ll}_V \vf^l_{\text{in}, i} + \sum_{k \ge 0} \sum_{j \in \cN_i \backslash i} \alpha_{ij} \mW^{lk}_V (\vx_j - \vx_i) \vf^k_{\text{in}, j}.
+\end{align}
+
+Similarly, the first term denotes self-interaction and the second term denotes attention.
+Equivariance is obvious as the attention weights are invariant (due to orthonormality of representations of SO(3), \((\mS_g\vq)^\top\mS_g\vk=\vq^\top\vk\)) and the value embeddings are equivariant w.r.t rototranslation.
+
+### Self-Interaction
+
+Self-interaction is an elegant form of learnable skip connection. It is crucial since, in the SE(3)-Transformer, points do not attend to themselves.
+The authors propose two types of self-interaction layer, both of the form
+
+\[
+\vf^{\text{out}, i, c^\prime} = \sum_c w^{ll}_{i, c^\prime, c} \vf^{l}_{\text{in}, i, c}
+\]
+
+**Linear** &emsp; Same as TFN, weights per order are shared across all points. The self-interaction layer is followed by a [norm-based non-linearity](#non-linearity). Or, in math language, \(w_{i, c^\prime, c}^{ll} = w_{c^\prime, c}^{ll}\).
+
+**Attentive** &emsp; Weights are generated from an MLP. This is an invariant layer due to the invariance of inner products.
+
+\[
+w_{i, c^\prime, c}^{ll} = \mathrm{MLP}\, \left(
+    \bigoplus_{c, c^\prime} \vf^{l\top}_{\text{in}, i, c^\prime} \vf^l_{\text{in}, i, c}
+\right)
+\]
 
 [^1]: N. Thomas and T. Smidt et al. Tensor field networks: Rotation- and translation-equivariant neural networks for 3D point clouds. NeurIPS 2018. [paper](https://arxiv.org/abs/1802.08219) [code](https://github.com/tensorfieldnetworks/tensorfieldnetworks)
 [^2]: F. B. Fuchs, D. E. Worrall, V. Fisher, M. Welling. SE(3)-Transformers: 3D Roto-Translation Equivariant Attention Networks. NeurIPS 2020. [paper](https://arxiv.org/abs/2006.10503)

@@ -18,11 +18,11 @@ Feel free to reach out (links at [webpage footer](#index_bottom))!
 
 ![SMN](assets/images/SMN.png){: align=right style="width: 23%" }
 
-- [**Neural Structured Prediction for Inductive Node Classification**](https://openreview.net/forum?id=YWNAX0caEjI)<br><em>ICLR</em>, 2022 (oral)<br><a href="https://mnqu.github.io/">Meng Qu</a>, <strong>Huiyu Cai</strong>, <a href="https://jian-tang.com">Jian Tang</a>.
+- [**Neural Structured Prediction for Inductive Node Classification**](https://openreview.net/forum?id=YWNAX0caEjI)<br><em>ICLR</em>, 2022 (oral)<br><a href="https://mnqu.github.io/">Meng Qu*</a>, <strong>Huiyu Cai*</strong>, <a href="https://jian-tang.com">Jian Tang</a> *<em>Equal contribution</em>
 
 ![SGNN-EBM](assets/images/SGNN-EBM.png){: align=right style="width: 23%" }
 
-- [**Structured Multi-task Learning for Molecular Property Prediction**](http://aistats.org/aistats2022/)<br><em>AISTATS</em>, 2022<br><a href="https://chao1224.github.io/">Shengchao Liu</a>, <a href="https://mnqu.github.io/">Meng Qu</a>, <a href="https://oxer11.github.io/">Zuobai Zhang</a>, <strong>Huiyu Cai</strong>, <a href="https://jian-tang.com">Jian Tang</a>.
+- [**Structured Multi-task Learning for Molecular Property Prediction**](http://aistats.org/aistats2022/)<br><em>AISTATS</em>, 2022<br><a href="https://chao1224.github.io/">Shengchao Liu</a>, <a href="https://mnqu.github.io/">Meng Qu</a>, <a href="https://oxer11.github.io/">Zuobai Zhang</a>, <strong>Huiyu Cai</strong>, <a href="https://jian-tang.com">Jian Tang</a>
 
 ### 2021 and before
 

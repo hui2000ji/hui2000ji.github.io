@@ -13,7 +13,7 @@ theme:
     - search.highlight
     # - toc.integrate
   custom_dir: overrides
-  palette: 
+  palette:
     - scheme: default
       toggle:
         icon: material/lightbulb-outline
@@ -58,7 +58,7 @@ extra:
   # disqus: https-hui2000ji-github-io
   social:
     - icon: fontawesome/solid/envelope
-      link: mailto:hy_cai@pku.edu.cn
+      link: mailto:huiyu.cai@umontreal.ca
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/hui2000ji
     - icon: fontawesome/brands/github

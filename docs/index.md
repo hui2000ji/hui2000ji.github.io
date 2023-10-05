@@ -2,17 +2,27 @@
 
 ![profile photo](assets/images/photo.jpg){: align=right style="width: 25%" }
 
-I am a first-year PhD student at <a href="https://mila.quebec/en">Mila - Quebec AI Institute</a> and <a href="https://diro.umontreal.ca/english/home/">Department of Computer Science and Operations Research</a>, <a href="https://www.umontreal.ca/en/">University of Montreal</a>, supervised by Prof. <a href="https://jian-tang.com">Jian Tang</a>. I graduated from the <a href="http://www.cis.pku.edu.cn/">Department of Machine Intelligence</a>,
+I am a third-year PhD candidate at <a href="https://mila.quebec/en">Mila - Quebec AI Institute</a> and <a href="https://diro.umontreal.ca/english/home/">Department of Computer Science and Operations Research</a>, <a href="https://www.umontreal.ca/en/">University of Montreal</a>, supervised by Prof. <a href="https://jian-tang.com">Jian Tang</a>. I graduated from the <a href="http://www.cis.pku.edu.cn/">Department of Machine Intelligence</a>,
 <a href="http://www.pku.edu.cn">Peking University</a> as an *Excellent Graduate in Beijing*.
 I was previously a member of the Language Computing and Web Mining Group,
 led by <a href="https://wanxiaojun.github.io/">Prof. Xiaojun Wan</a>.
 
-I am interested in deep generative models, graph representation learning and their wide applications,
-such as drug discovery, single-cell modeling, etc.
+I am interested in deep generative models, geometric deep learning and their wide applications,
+such as biomolecular interaction modeling, drug discovery, single-cell data analysis, etc.
 
 Feel free to reach out (links at [webpage footer](#index_bottom))!
 
 ## Publications
+
+### 2023
+
+![E3Bind](assets/images/e3bind.png){: align=right style="width: 23%" }
+
+- [**E3Bind: An End-to-End Equivariant Network for Protein-Ligand Docking**](https://arxiv.org/abs/2210.06069)<br><em>ICLR</em>, 2023<br><a href="https://zytzrh.github.io/">Yangtian Zhang</a>\*, <strong>Huiyu Cai</strong>\*, <a href="https://chenceshi.com/">Chence Shi</a>, <a href="https://jian-tang.com">Jian Tang</a> *<em>Equal contribution</em>
+
+![GearBind](assets/images/gearbind.png){: align=right style="width: 23%" }
+
+- [**GearBind: A Geometric Graph Neural Network for Protein-Ligand Binding Affinity Prediction**](https://www.biorxiv.org/content/10.1101/2023.08.10.552845v1)<br><em>In submission</em>, 2023<br><strong>Huiyu Cai</strong>\*, <a href="https://oxer11.github.io/">Zuobai Zhang</a>\*, <a href="https://mkaiw.github.io/">Mingkai Wang</a>\*, <a href="https://zhongbozitao.github.io/">Bozitao Zhong</a>\*, Yanling Wu, Tianlei Ying, <a href="https://jian-tang.com">Jian Tang</a> *<em>Equal contribution</em>
 
 ### 2022
 

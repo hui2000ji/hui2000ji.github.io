@@ -1,0 +1,15 @@
+.image-center {
+    display: block;
+    margin: auto auto;
+}
+
+.medium {
+    color: #00AB6C;
+}
+.twitter {
+    color: #1DA1F2;
+}
+.facebook {
+    color: #4267B2;
+}
+

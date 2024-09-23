@@ -1,0 +1,1695 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Personal website of Huiyu CAI.">
+      
+      
+      
+        <link rel="canonical" href="https://hui2000ji.github.io/machine_learning/representation_learning_with_mutual_information_maximization/">
+      
+      
+        <link rel="prev" href="../graph_neural_networks/">
+      
+      
+        <link rel="next" href="../disentangled_representation_learning/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.36">
+    
+    
+      
+        <title>Representation Learning with Mutual Information Maximization - Huiyu CAI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.06209087.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Nunito";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/atom-one-light.min.css">
+    
+      <link rel="stylesheet" href="../../assets/css/style.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#representation-learning-with-mutual-information-maximization" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Huiyu CAI" class="md-header__button md-logo" aria-label="Huiyu CAI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Huiyu CAI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Representation Learning with Mutual Information Maximization
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="deep-orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hui2000ji/hui2000ji.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hui2000ji/hui2000ji.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../assets/documents/CV%20-%20Huiyu%20Cai.pdf" class="md-tabs__link">
+        
+  
+    
+  
+  CV
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  Machine Learning
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Huiyu CAI" class="md-nav__button md-logo" aria-label="Huiyu CAI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Huiyu CAI
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hui2000ji/hui2000ji.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hui2000ji/hui2000ji.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assets/documents/CV%20-%20Huiyu%20Cai.pdf" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CV
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Machine Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph_neural_networks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Graph Neural Networks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Representation Learning with Mutual Information Maximization
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Representation Learning with Mutual Information Maximization
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#f-gan" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(f\)-GAN
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="\(f\)-GAN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(f\)-divergence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variational-representation-of-the-f-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variational representation of the \(f\)-divergence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f-gan-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(f\)-GAN Objective
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mutual-information-neural-estimator-mine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mutual Information Neural Estimator (MINE)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mutual Information Neural Estimator (MINE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-donsker-varadhan-representation-of-kl" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Donsker-Varadhan representation of KL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-f-divergence-representation-of-kl" class="md-nav__link">
+    <span class="md-ellipsis">
+      The \(f\)-divergence representation of KL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estimating-mutual-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estimating Mutual Information
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contrastive-predictive-coding-cpc-and-the-infonce-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contrastive Predictive Coding (CPC) and the InfoNCE Loss
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contrastive Predictive Coding (CPC) and the InfoNCE Loss">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#noise-contrastive-estimation-nce" class="md-nav__link">
+    <span class="md-ellipsis">
+      Noise-Contrastive Estimation (NCE)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contrastive-predictive-coding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contrastive Predictive Coding
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relation-with-mutual-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relation with Mutual Information
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relation-with-mine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relation with MINE
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deep-infomax-dim" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deep InfoMax (DIM)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deep InfoMax (DIM)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statistical-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Statistical Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-mi-maximization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local MI Maximization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mi-maximization-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      MI Maximization Objectives
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MI Maximization Objectives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-donsker-varadhan-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Donsker-Varadhan Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-jensen-shannon-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Jensen-Shannon Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-infonce-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      The InfoNCE Objective
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deep-graph-infomax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deep Graph Infomax
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#infograph" class="md-nav__link">
+    <span class="md-ellipsis">
+      InfoGraph
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../disentangled_representation_learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Disentangled Representation Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../equivariant_gnns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Equivariant GNNs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#f-gan" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(f\)-GAN
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="\(f\)-GAN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(f\)-divergence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variational-representation-of-the-f-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variational representation of the \(f\)-divergence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f-gan-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(f\)-GAN Objective
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mutual-information-neural-estimator-mine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mutual Information Neural Estimator (MINE)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mutual Information Neural Estimator (MINE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-donsker-varadhan-representation-of-kl" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Donsker-Varadhan representation of KL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-f-divergence-representation-of-kl" class="md-nav__link">
+    <span class="md-ellipsis">
+      The \(f\)-divergence representation of KL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estimating-mutual-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estimating Mutual Information
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contrastive-predictive-coding-cpc-and-the-infonce-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contrastive Predictive Coding (CPC) and the InfoNCE Loss
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contrastive Predictive Coding (CPC) and the InfoNCE Loss">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#noise-contrastive-estimation-nce" class="md-nav__link">
+    <span class="md-ellipsis">
+      Noise-Contrastive Estimation (NCE)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contrastive-predictive-coding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contrastive Predictive Coding
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relation-with-mutual-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relation with Mutual Information
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relation-with-mine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relation with MINE
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deep-infomax-dim" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deep InfoMax (DIM)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deep InfoMax (DIM)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statistical-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Statistical Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-mi-maximization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local MI Maximization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mi-maximization-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      MI Maximization Objectives
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MI Maximization Objectives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-donsker-varadhan-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Donsker-Varadhan Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-jensen-shannon-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Jensen-Shannon Objective
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-infonce-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      The InfoNCE Objective
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deep-graph-infomax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deep Graph Infomax
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#infograph" class="md-nav__link">
+    <span class="md-ellipsis">
+      InfoGraph
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+  
+  
+
+
+<h1 id="representation-learning-with-mutual-information-maximization">Representation Learning with Mutual Information Maximization<a class="headerlink" href="#representation-learning-with-mutual-information-maximization" title="Permanent link">&para;</a></h1>
+<h2 id="f-gan"><span class="arithmatex">\(f\)</span>-GAN<a class="headerlink" href="#f-gan" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>2016 NIPS - <span class="arithmatex">\(f\)</span>-GAN: Training Generative Neural Samplers using Variational Divergence Minimization <sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
+</blockquote>
+<h3 id="f-divergence"><span class="arithmatex">\(f\)</span>-divergence<a class="headerlink" href="#f-divergence" title="Permanent link">&para;</a></h3>
+<p>Suppose we want to train a generative model <span class="arithmatex">\(Q\)</span> that generates data as realistic (close to the true data distribution <span class="arithmatex">\(P\)</span>) as possible. In other words, we wish to minimize the <span class="arithmatex">\(f\)</span>-divergence</p>
+<div class="arithmatex">\[
+\DeclareMathOperator{\Dcal}{\mathcal{D}}
+\DeclareMathOperator{\Gcal}{\mathcal{G}}
+\DeclareMathOperator{\Vcal}{\mathcal{V}}
+\DeclareMathOperator{\Tcal}{\mathcal{T}}
+\DeclareMathOperator{\Lcal}{\mathcal{L}}
+\DeclareMathOperator{\lcal}{\mathcal{l}}
+\DeclareMathOperator{\Xcal}{\mathcal{X}}
+\DeclareMathOperator{\Zcal}{\mathcal{Z}}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\dom}{\mathrm{dom}}
+\DeclareMathOperator{\sign}{\mathrm{sign}}
+\DeclareMathOperator{\KL}{\Dcal_{\mathrm{KL}}}
+\DeclareMathOperator{\JS}{\Dcal_{\mathrm{JS}}}
+\def\dd{\mathrm{d}}
+\def\ee{\mathrm{e}}
+\Dcal_f(P \Vert Q) = \int_{\Xcal} q(x) f\left(\frac{p(x)}{q(x)} \right) \dd x = \E_{q(x)} f\left(\frac{p(x)}{q(x)} \right)
+\]</div>
+<p>where <span class="arithmatex">\(f:\R^+ \to \R\)</span> is convex, lower-semicontinuous and satisfies <span class="arithmatex">\(f(1) = 0\)</span>.</p>
+<p>Below is a table of the <span class="arithmatex">\(f\)</span>-divergence family.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th><span class="arithmatex">\(\Dcal_f(P \Vert Q)\)</span></th>
+<th><span class="arithmatex">\(f(u)\)</span></th>
+<th><span class="arithmatex">\(T^*(u)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total variation</td>
+<td><span class="arithmatex">\(\frac{1}{2} \int \vert p(x) - q(x) \vert \dd x\)</span></td>
+<td><span class="arithmatex">\(\frac{1}{2} \vert u - 1 \vert\)</span></td>
+<td><span class="arithmatex">\(\frac{1}{2} \sign (u - 1)\)</span></td>
+</tr>
+<tr>
+<td>Kullback-Leibler (KL)</td>
+<td><span class="arithmatex">\(\int p(x)\log \frac{p(x)}{q(x)} \dd x\)</span></td>
+<td><span class="arithmatex">\(u \log u\)</span></td>
+<td><span class="arithmatex">\(1+\log u\)</span></td>
+</tr>
+<tr>
+<td>Reverse KL</td>
+<td><span class="arithmatex">\(\int q(x)\log \frac{q(x)}{p(x)} \dd x\)</span></td>
+<td><span class="arithmatex">\(- \log u\)</span></td>
+<td><span class="arithmatex">\(-\frac{1}{u}\)</span></td>
+</tr>
+<tr>
+<td>Pearson <span class="arithmatex">\(\chi^2\)</span></td>
+<td><span class="arithmatex">\(\int \frac{(q(x) - p(x))^{2}}{p(x)} \dd x\)</span></td>
+<td><span class="arithmatex">\((1 - u)^{2}\)</span></td>
+<td><span class="arithmatex">\(2(u-1)\)</span></td>
+</tr>
+<tr>
+<td>Neyman <span class="arithmatex">\(\chi^2\)</span></td>
+<td><span class="arithmatex">\(\int \frac{(p(x) - q(x))^{2}}{q(x)} \dd x\)</span></td>
+<td><span class="arithmatex">\(\frac{(1 - u)^{2}}{u}\)</span></td>
+<td><span class="arithmatex">\(1-\frac{1}{u^2}\)</span></td>
+</tr>
+<tr>
+<td>Squared Hellinger</td>
+<td><span class="arithmatex">\(\int \left(\sqrt{p(x)} - \sqrt{q(x)}\right)^{2} \dd x\)</span></td>
+<td><span class="arithmatex">\((\sqrt{u} - 1)^{2}\)</span></td>
+<td><span class="arithmatex">\((\sqrt{u}-1)\sqrt{\frac{1}{u}}\)</span></td>
+</tr>
+<tr>
+<td>Jeffrey</td>
+<td><span class="arithmatex">\(\int (p(x) - q(x))\log \left(\frac{p(x)}{q(x)}\right) \dd x\)</span></td>
+<td><span class="arithmatex">\((u - 1)\log u\)</span></td>
+<td><span class="arithmatex">\(1+\log u - \frac{1}{u}\)</span></td>
+</tr>
+<tr>
+<td>Jensen-Shannon</td>
+<td><span class="arithmatex">\(\frac{1}{2}\int p(x)\log \frac{2 p(x)}{p(x) + q(x)} + q(x)\log \frac{2 q(x)}{p(x) + q(x)} \dd x\)</span></td>
+<td><span class="arithmatex">\(-\frac{u  + 1}{2}\log \frac{1  + u}{2} + \frac{u}{2} \log u\)</span></td>
+<td><span class="arithmatex">\(\frac{1}{2}\log\frac{2u}{u+1}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\alpha\)</span>-divergence</td>
+<td><span class="arithmatex">\(\frac{1}{\alpha (\alpha - 1)}\int p(x)\left[ \left(\frac{q(x)}{p(x)}\right)^\alpha - 1 \right] - \alpha(q(x) - p(x)) \dd x\)</span></td>
+<td><span class="arithmatex">\(\frac{1}{\alpha (\alpha - 1)}(u^\alpha - 1 - \alpha(u-1))\)</span></td>
+<td><span class="arithmatex">\(\frac{1}{\alpha - 1}\left( u^{\alpha-1} - 1 \right)\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Fenchel conjugate</p>
+<p>The Fenchel conjugate of function <span class="arithmatex">\(f(x)\)</span> is defined as <span class="arithmatex">\(f^*(x^*) = \sup_{x \in \dom f} \big\{ \langle x, x^* \rangle - f(x) \big\}\)</span>.</p>
+<p>We can easily verify that <span class="arithmatex">\(f^*\)</span> is convex and lower-semicontinuous. When <span class="arithmatex">\(f\)</span> is also convex and lower semi-continuous, <span class="arithmatex">\(f^{**} = f\)</span>.</p>
+</div>
+<h3 id="variational-representation-of-the-f-divergence">Variational representation of the <span class="arithmatex">\(f\)</span>-divergence<a class="headerlink" href="#variational-representation-of-the-f-divergence" title="Permanent link">&para;</a></h3>
+<p>We now derive the variational lower bound on <span class="arithmatex">\(f\)</span>-divergence:</p>
+<div class="arithmatex">\[
+\begin{align}
+\Dcal_f(P \Vert Q)
+&amp;= \int_{\Xcal} q(x) \sup_{t \in \dom f^*}\left\{t\frac{p(x)}{q(x)} -f^*(t) \right\} \dd x\\
+&amp;\ge \sup_{T \in \Tcal} \Big\{ \int_{\Xcal} p(x)T(x) \dd x - \int_{\Xcal} q(x)f^*(T(x)) \dd x \Big\}\\
+&amp;= \sup_{T \in \Tcal} \Big\{ \E_{p(x)}T(x) - \E_{q(x)}f^*(T(x)) \Big\}
+\end{align}
+\]</div>
+<p>where <span class="arithmatex">\(\Tcal\)</span> is a class of functions <span class="arithmatex">\(T: \Xcal \to \R\)</span>.
+It is straightforward to see that the optimal <span class="arithmatex">\(T^*(x) = f^\prime \left( \frac{p(x)}{q(x)} \right)\)</span> (please do not confuse with conjugate function) by substituting the definition of <span class="arithmatex">\(f^*\)</span> and let <span class="arithmatex">\(t\)</span> be <span class="arithmatex">\(\frac{p(x)}{q(x)}\)</span></p>
+<div class="arithmatex">\[
+\Dcal_f(P \Vert Q) \ge \E_{p(x)}T(x) - \E_{q(x)} \left[ \frac{p(x)}{q(x)}T(x) - f\left(\frac{p(x)}{q(x)}\right) \right] = \Dcal_f(P \Vert Q)
+\]</div>
+<p>The critical value <span class="arithmatex">\(f^\prime(1)\)</span> can be interpreted as a classification threshold applied to <span class="arithmatex">\(T(x)\)</span> to distinguish between true and generated samples.</p>
+<h3 id="f-gan-objective"><span class="arithmatex">\(f\)</span>-GAN Objective<a class="headerlink" href="#f-gan-objective" title="Permanent link">&para;</a></h3>
+<p>We parameterize the generator <span class="arithmatex">\(Q\)</span> with parameter <span class="arithmatex">\(\theta\)</span> and the discriminator <span class="arithmatex">\(T\)</span> with parameter <span class="arithmatex">\(\omega\)</span>. The <span class="arithmatex">\(f\)</span>-GAN objective is then defined as</p>
+<div class="arithmatex">\[
+\min_\theta \max_\omega F(\theta, \omega) = \E_{p(x)} T_\omega(x) - \E_{q_\theta(x)} f^*(T_\omega(x)).
+\]</div>
+<p>To account for <span class="arithmatex">\(\dom f^*\)</span> of various <span class="arithmatex">\(f\)</span>-divergence, we further decompose <span class="arithmatex">\(T_\omega(x)\)</span> into <span class="arithmatex">\(T_\omega(x) = g_f\big(V_\omega(x) \big)\)</span>, where <span class="arithmatex">\(V_\omega: \Xcal \to \R\)</span> is a neural network and <span class="arithmatex">\(g_f : \R \to \dom f^*\)</span> is an output activation function.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th><span class="arithmatex">\(g_f\)</span></th>
+<th><span class="arithmatex">\(\dom f^*\)</span></th>
+<th><span class="arithmatex">\(f^*(t)\)</span></th>
+<th><span class="arithmatex">\(f^\prime(1)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total variation</td>
+<td><span class="arithmatex">\(\frac{1}{2}\tanh(v)\)</span></td>
+<td><span class="arithmatex">\(\left[-\frac{1}{2},\frac{1}{2}\right]\)</span></td>
+<td><span class="arithmatex">\(t\)</span></td>
+<td><span class="arithmatex">\(0\)</span></td>
+</tr>
+<tr>
+<td>Kullback-Leibler (KL)</td>
+<td><span class="arithmatex">\(v\)</span></td>
+<td><span class="arithmatex">\(\R\)</span></td>
+<td><span class="arithmatex">\(\ee^{t-1}\)</span></td>
+<td><span class="arithmatex">\(1\)</span></td>
+</tr>
+<tr>
+<td>Reverse KL</td>
+<td><span class="arithmatex">\(-\ee^v\)</span></td>
+<td><span class="arithmatex">\(\R_-\)</span></td>
+<td><span class="arithmatex">\(-1 - \log(-t)\)</span></td>
+<td><span class="arithmatex">\(-1\)</span></td>
+</tr>
+<tr>
+<td>Pearson <span class="arithmatex">\(\chi^2\)</span></td>
+<td><span class="arithmatex">\(v\)</span></td>
+<td><span class="arithmatex">\(\R\)</span></td>
+<td><span class="arithmatex">\(\frac{1}{4}t^2 + t\)</span></td>
+<td><span class="arithmatex">\(0\)</span></td>
+</tr>
+<tr>
+<td>Neyman <span class="arithmatex">\(\chi^2\)</span></td>
+<td><span class="arithmatex">\(1-\ee^{v}\)</span></td>
+<td><span class="arithmatex">\((-\infty,1)\)</span></td>
+<td><span class="arithmatex">\(2-2\sqrt{1-t}\)</span></td>
+<td><span class="arithmatex">\(0\)</span></td>
+</tr>
+<tr>
+<td>Squared Hellinger</td>
+<td><span class="arithmatex">\(1-\ee^{v}\)</span></td>
+<td><span class="arithmatex">\((-\infty,1)\)</span></td>
+<td><span class="arithmatex">\(\frac{t}{1-t}\)</span></td>
+<td><span class="arithmatex">\(0\)</span></td>
+</tr>
+<tr>
+<td>Jeffery</td>
+<td><span class="arithmatex">\(v\)</span></td>
+<td><span class="arithmatex">\(\R\)</span></td>
+<td><span class="arithmatex">\(W(\ee^{1-t})+\frac{1}{W(\ee^{1-t})}+t-2\)</span></td>
+<td><span class="arithmatex">\(0\)</span></td>
+</tr>
+<tr>
+<td>Jensen-Shannon</td>
+<td><span class="arithmatex">\(\frac{\log 2}{2}-\frac{1}{2}\log(1+\ee^{-v})\)</span></td>
+<td><span class="arithmatex">\(\left(-\infty,\frac{\log 2}{2}\right)\)</span></td>
+<td><span class="arithmatex">\(-\frac{1}{2}\log(2-\ee^{2t})\)</span></td>
+<td><span class="arithmatex">\(0\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\alpha\)</span>-div. (<span class="arithmatex">\(\alpha \in (0,1)\)</span>)</td>
+<td><span class="arithmatex">\(\frac{1}{1-\alpha} - \log(1+\ee^{-v})\)</span></td>
+<td><span class="arithmatex">\((-\infty, \frac{1}{1-\alpha})\)</span></td>
+<td><span class="arithmatex">\(\frac{1}{\alpha}(t(\alpha-1)+1)^{\frac{\alpha}{\alpha-1}} - \frac{1}{\alpha}\)</span></td>
+<td><span class="arithmatex">\(0\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\alpha\)</span>-div. (<span class="arithmatex">\(1&lt;\alpha\)</span>)</td>
+<td><span class="arithmatex">\(v\)</span></td>
+<td><span class="arithmatex">\(\R\)</span></td>
+<td><span class="arithmatex">\(\frac{1}{\alpha}(t(\alpha-1)+1)^{\frac{\alpha}{\alpha-1}} - \frac{1}{\alpha}\)</span></td>
+<td><span class="arithmatex">\(0\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>where <span class="arithmatex">\(W\)</span> is the Lambert-<span class="arithmatex">\(W\)</span> product log function.</p>
+<h2 id="mutual-information-neural-estimator-mine">Mutual Information Neural Estimator (MINE)<a class="headerlink" href="#mutual-information-neural-estimator-mine" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>2018 ICML - MINE: Mutual Information Neural Estimation <sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></p>
+</blockquote>
+<p>MINE has two variants termed MINE and MINE-<span class="arithmatex">\(f\)</span>. The former uses the Donsker-Varadhan representation of the KL divergence, which results in a tighter estimator; the latter uses the <span class="arithmatex">\(f\)</span>-divergence representation described above.</p>
+<h3 id="the-donsker-varadhan-representation-of-kl">The Donsker-Varadhan representation of KL<a class="headerlink" href="#the-donsker-varadhan-representation-of-kl" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\KL(P \Vert Q) \ge \sup_{T \in \Tcal} \left\{
+    \E_{p(x)} T(x) - \log \E_{q(x)} \ee^{T(x)}
+\right\}
+\]</div>
+<p><strong>Proof</strong>: Consider the Gibbs distribution <span class="arithmatex">\(g(x) = \frac{1}{Z} q(x) \ee^{T(x)}\)</span> where <span class="arithmatex">\(Z = \E_{q(x)} \ee^{T(x)}\)</span>. Then</p>
+<div class="arithmatex">\[
+\begin{align}
+\Delta
+:&amp;= \KL(P \Vert Q) - \E_{p(x)} T(x) - \log \E_{q(x)} \ee^{T(x)} \\
+&amp;= \KL(p(x) \Vert q(x)) - \E_{p(x)} T(x) - \log Z \\
+&amp;= \KL(p(x) \Vert q(x)) - \E_{p(x)} \big( T(x) - \log Z \big) \\
+&amp;= \E_{p(x)}\frac{p(x)}{q(x)} - \E_{p(x)} \frac{g(x)}{q(x)} \\
+&amp;= \KL(p(x) \Vert g(x)) \ge 0
+\end{align}
+\]</div>
+<p>where <span class="arithmatex">\(\Tcal\)</span> is a class of functions <span class="arithmatex">\(T: \Xcal \to \R\)</span> such that the two expectations are finite. The equality holds when <span class="arithmatex">\(g(x) \equiv p(x)\)</span>, i.e. <span class="arithmatex">\(T^*(x) = \log \frac{p(x)}{q(x)} + C\)</span>.</p>
+<h3 id="the-f-divergence-representation-of-kl">The <span class="arithmatex">\(f\)</span>-divergence representation of KL<a class="headerlink" href="#the-f-divergence-representation-of-kl" title="Permanent link">&para;</a></h3>
+<p>Adopting the <a href="#variational-representation-of-the-f-divergence">variational lower bound for <span class="arithmatex">\(f\)</span>-divergence</a>, we have</p>
+<div class="arithmatex">\[
+\KL(P \Vert Q) \ge \sup_{T \in \Tcal} \left\{ \E_{p(x)} T(x) - \E_{q(x)} \ee^{T(x) - 1} \right\}
+\]</div>
+<p>and the optimal <span class="arithmatex">\(T^*(x) = 1+\log \frac{p(x)}{q(x)}\)</span>.</p>
+<h3 id="estimating-mutual-information">Estimating Mutual Information<a class="headerlink" href="#estimating-mutual-information" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+I(X;Z) = \KL(p(x, z) \Vert p(x)p(z)) \ge \sup_{\theta \in \Theta} \left\{
+    \E_{p(x,z)}T_\theta (x,z) - \log \E_{p(x)p(z)}\ee^{T_\theta(x,z)}
+\right\}
+\]</div>
+<p>We estimate the expectations with empirical samples</p>
+<div class="arithmatex">\[
+\hat{I}(X;Z)_n = \sup_{\theta \in \Theta} \Vcal(\theta) = \sup_{\theta \in \Theta} \left\{
+    \E_{p^{(n)}(x,z)}T_\theta (x,z) - \log \E_{p^{(n)}(x)\hat{p}^{(n)}(z)}\ee^{T_\theta(x,z)}
+\right\}
+\]</div>
+<p>When using stochastic gradient descent (SGD), the gradient update of MINE</p>
+<div class="arithmatex">\[
+\nabla_\theta \Vcal(\theta) = \E_B \nabla_\theta T(\theta) - \frac{\E_B \ee^{T_\theta}\nabla_\theta T_\theta}{\E_B \ee^{T_\theta}}
+\]</div>
+<p>is a biased estimate of the full gradient update (<strong>Why?</strong>). This is corrected by an exponential moving average applied to the denominator.
+For MINE-<span class="arithmatex">\(f\)</span>, the SGD gradient is unbiased.</p>
+<h2 id="contrastive-predictive-coding-cpc-and-the-infonce-loss">Contrastive Predictive Coding (CPC) and the InfoNCE Loss<a class="headerlink" href="#contrastive-predictive-coding-cpc-and-the-infonce-loss" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>2010 AISTATS - Noise-contrastive estimation: A new estimation principle for unnormalized statistical models <sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup></p>
+<p>2018 NeurIPS - Representation Learning with Contrastive Predictive Coding <sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup></p>
+</blockquote>
+<h3 id="noise-contrastive-estimation-nce">Noise-Contrastive Estimation (NCE)<a class="headerlink" href="#noise-contrastive-estimation-nce" title="Permanent link">&para;</a></h3>
+<p>Suppose we have observed data <span class="arithmatex">\(\mathbf{x} \sim p_d(\cdot)\)</span> and we want to estimate a model from a family <span class="arithmatex">\(\{p_\mathrm{m}(\cdot;\alpha)\}_\alpha\)</span> where <span class="arithmatex">\(\alpha\)</span> is the model parameter. The challenge is that often it is more convenient to define an unnormalized model <span class="arithmatex">\(p_\mathrm{m}^0\)</span> such that</p>
+<div class="arithmatex">\[p_\mathrm{m}(\cdot;\alpha) = \frac{p_\mathrm{m}^0(\cdot;\alpha)}{Z(\alpha)} \quad \text{where} \ Z(\alpha) = \int p_\mathrm{m}^0(\mathbf{u};\alpha)\dd \mathbf{u}.\]</div>
+<p>The integral <span class="arithmatex">\(Z(\alpha)\)</span> is rarely analytically tractable, and if the data is highdimensional, numerical integration is difficult. We include the normalization constant <span class="arithmatex">\(Z(\alpha)\)</span> as an additional parameter <span class="arithmatex">\(c \approx -\log Z(\alpha)\)</span>, so that</p>
+<div class="arithmatex">\[\log p_\mathrm{m}(\cdot; \theta) = \log p_\mathrm{m}^0(\cdot; \alpha) + c \quad \text{where} \ \theta = {\alpha, c}.\]</div>
+<p>Performing Maxmimum Likelihood Estimation (MLE) on this objective is not feasible as <span class="arithmatex">\(c\)</span> would be pushed to infinity. Instead we learn to discriminate between the data <span class="arithmatex">\(\mathbf{x}\)</span> and some artificially generated noise <span class="arithmatex">\(\mathbf{y} \sim p_{\mathrm{n}}\)</span>. With <span class="arithmatex">\(T\)</span> positive (data) and <span class="arithmatex">\(T\)</span> negative (noise) examples, we aim to correctly classify each of them, and thus define the NCE objective as</p>
+<div class="arithmatex">\[
+\begin{align}
+J_T(\theta) &amp;= \frac{1}{2T} \sum_{t=1}^T \Big[ \log h(\mathbf{x}_t; \theta) + \log \big( 1 - h(\mathbf{y}_t; \theta) \big) \Big] \\
+&amp;= \frac{1}{2T} \sum_{t=1}^T \left[
+    \log \frac{p_{\mathrm{m}}(\mathbf{x}_t; \theta)}{p_{\mathrm{m}}(\mathbf{x}_t; \theta) + p_{\mathrm{n}}(\mathbf{x}_t)} +
+    \log \frac{p_{\mathrm{n}}(\mathbf{y}_t)}{p_{\mathrm{m}}(\mathbf{y}_t; \theta) + p_{\mathrm{n}}(\mathbf{y}_t)}
+\right]
+\end{align}
+\]</div>
+<p>where <span class="arithmatex">\(h(\mathbf{u}; \theta) = \sigma\big(\log p_{\mathrm{m}}(\mathbf{u}; \theta) - \log p_{\mathrm{n}}(\mathbf{u}) \big)\)</span>.</p>
+<p>This <a href="https://zhuanlan.zhihu.com/p/334772391">blog post</a> (in Chinese) shows by gradient calculation that when the number of negative samples approches infinity, the NCE gradient equals to the MLE gradient.</p>
+<h3 id="contrastive-predictive-coding">Contrastive Predictive Coding<a class="headerlink" href="#contrastive-predictive-coding" title="Permanent link">&para;</a></h3>
+<p>Let <span class="arithmatex">\(\{x_t\}\)</span> be a sequence of observations, <span class="arithmatex">\(z_t = g_{\mathrm{enc}}(x_t)\)</span> be the encoded latent representation at time step <span class="arithmatex">\(t\)</span>, and <span class="arithmatex">\(c_t = g_{\mathrm{ar}}(z_{\le t})\)</span> be the summarized context (global, ar for auto-regressive) latent representation at time step <span class="arithmatex">\(t\)</span>. Given a set <span class="arithmatex">\(X = \{x_1, \cdots, x_N\}\)</span> of <span class="arithmatex">\(N\)</span> random samples containing one positive sample from <span class="arithmatex">\(p(x_{t+k}|c_t)\)</span> and <span class="arithmatex">\(N - 1\)</span> negative samples from the 'proposal' distribution <span class="arithmatex">\(p(x_{t+k})\)</span>, we wish to preserve the mutual information between the <span class="arithmatex">\(k\)</span>-step-later input <span class="arithmatex">\(x_{t+k}\)</span> and the current context <span class="arithmatex">\(c_t\)</span>, by trying to identify the positive sample among all the samples:</p>
+<div class="arithmatex">\[
+p(d=i|X, c_t) = \frac{p(x_i|c_t)\prod_{l \ne i}p(x_l)}{\sum_{j=1}^N p(x_j|c_t)\prod_{l \ne j}p(x_l)} = \frac{\frac{p(x_i|c_t)}{p(x_i)}}{\sum_{j=1}^N \frac{p(x_j|c_t)}{p(x_j)}}
+= \frac{f_i(x_i, c_t)}{\sum_{j=1}^N f_j(x_j, c_t)}
+\]</div>
+<p>where <span class="arithmatex">\(f_{k}(x_{t+k}, c_t) = C \frac{p(x_{t+k}|c_t)}{p(x_{t+k})}\)</span> and <span class="arithmatex">\(C\)</span> is an arbitrary constant. Note that <span class="arithmatex">\(f\)</span> is unnormalized and can be parameterized by a simple log-bilinear model</p>
+<div class="arithmatex">\[
+f_{k}(x_{t+k}, c_t) = \exp \big( z_{t+k}^T W_k c_t \big).
+\]</div>
+<p>To maximize our contrastive predictive capabilities, we minimize the following InfoNCE loss:</p>
+<div class="arithmatex">\[
+\Lcal^{\mathrm{(InfoNCE)}} = -\E_X \left[ \log \frac{f_{k}(x_{t+k}, c_t)}{\sum_{x_j \in X} f_{k}(x_{j}, c_t)} \right]
+\]</div>
+<h3 id="relation-with-mutual-information">Relation with Mutual Information<a class="headerlink" href="#relation-with-mutual-information" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+I(x_{t+k}; c_t) \ge \log N - \Lcal^{\mathrm{(InfoNCE)}}
+\]</div>
+<p><strong>Proof</strong>:</p>
+<div class="arithmatex">\[
+\begin{align}
+\Lcal^{\mathrm{(InfoNCE)}}
+&amp;= \E_X \log \Big(
+    1 + \frac{p(x_{t+k})}{p(x_{t+k}|c_t)} \sum_{j \ne t + k} \frac{p(x_j|c_t)}{p(x_j)}
+\Big) \\
+&amp;\approx \E_X \log \Big(
+    1 + \frac{p(x_{t+k})}{p(x_{t+k}|c_t)} (N-1) \E_{x_j \in X_\mathrm{neg}} \frac{p(x_j|c_t)}{p(x_j)}
+\Big) \\
+&amp;\approx \E_X \log \Big(
+    1 + \frac{p(x_{t+k})}{p(x_{t+k}|c_t)} (N-1)
+\Big) \\
+&amp;\ge \E_X \log \Big(
+    N \frac{p(x_{t+k})}{p(x_{t+k}|c_t)}
+\Big) \\
+&amp;= -I(x_{t+k}; c_t) + \log N
+\end{align}
+\]</div>
+<p>Note that the approximation is more accurate as the number of negative samples increases.</p>
+<h3 id="relation-with-mine">Relation with MINE<a class="headerlink" href="#relation-with-mine" title="Permanent link">&para;</a></h3>
+<p>Let <span class="arithmatex">\(F(x, c) = \log f(x, c)\)</span>, then</p>
+<div class="arithmatex">\[
+\begin{align}
+\Lcal^{\mathrm{(InfoNCE)}} &amp;= -\E_X \left[ \frac{f_{k}(x_{t+k}, c_t)}{\sum_{x_j \in X} f_{k}(x_{j}, c_t)} \right] \\
+&amp;= \E_X F(x_{t+k}, c_t) - \E_X \log \big(\ee^{F(x_{t+k}, c_t)} \sum_{x_j \in X_{\mathrm{neg}}} \ee^{F(x_j, c_t)} \big) \\
+&amp;\le \E_X F(x_{t+k}, c_t) - \E_{c_t} \log \sum_{x_j \in X_{\mathrm{neg}}} \ee^{F(x_j, c_t)} \\
+&amp;= \E_X F(x_{t+k}, c_t) - \E_{c_t} \Big[ \log \frac{1}{N-1} \sum_{x_j \in X_{\mathrm{neg}}} \ee^{F(x_j, c_t)} + \log(N - 1) \Big]
+\end{align}
+\]</div>
+<p>which is equivalent to the MINE estimator:</p>
+<div class="arithmatex">\[
+\hat{I}(X;Z)_n = \sup_{\theta \in \Theta} \Vcal(\theta) = \sup_{\theta \in \Theta} \left\{
+    \E_{p^{(n)}(x,z)}T_\theta (x,z) - \log \E_{p^{(n)}(x)\hat{p}^{(n)}(z)}\ee^{T_\theta(x,z)}
+\right\}
+\]</div>
+<h2 id="deep-infomax-dim">Deep InfoMax (DIM)<a class="headerlink" href="#deep-infomax-dim" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>2019 ICLR - Learning deep representations by mutual information estimation and maximization <sup id="fnref2:5"><a class="footnote-ref" href="#fn:5">5</a></sup></p>
+</blockquote>
+<p>Deep InfoMax is a principled framework for training a continuous and (almost everywhere)
+differentiable encoder <span class="arithmatex">\(E_\psi: \Xcal \to \Zcal\)</span> to maximize mutual information between
+its input and output, with neural network parameters <span class="arithmatex">\(\psi \in \Psi\)</span>.</p>
+<p>Assume that we are given a set of training examples on an input space, <span class="arithmatex">\(\mathbf{X} := \{x^{(i)} \in \Xcal\}_{i=1}^N\)</span>, with empirical probability distribution <span class="arithmatex">\(P\)</span>.
+We define <span class="arithmatex">\(U_{\psi,P}\)</span> as the marginal distribution of <span class="arithmatex">\(z=E_\psi(x)\)</span> where <span class="arithmatex">\(x\)</span> is sampled from <span class="arithmatex">\(P\)</span>, i.e., <span class="arithmatex">\(u(z=E_\psi(x)) = \big( \nabla_x E_\psi(x) \big)^{-1} p(x)\)</span>.</p>
+<p>We assert our encoder should be trained according to the following criteria:</p>
+<ul>
+<li>Local and global mutual information maximization</li>
+<li>Statistical constraints (prior in the latent space <span class="arithmatex">\(v(z)\)</span>).</li>
+</ul>
+<div class="arithmatex">\[
+\min_{\psi} - I(X; Z) + \lambda \KL(v(z)\Vert u(z))
+\]</div>
+<p>As a preliminary, we introduce the local feature encoder <span class="arithmatex">\(C_\psi\)</span>, the global feature encoder <span class="arithmatex">\(E_\psi = f_\psi \circ C_\psi\)</span> and the discriminator <span class="arithmatex">\(T_{\psi, \omega} = D_\omega \circ g \circ (C_\psi, E_\psi)\)</span>,
+where <span class="arithmatex">\(D_\omega\)</span> is a neural classifier, and <span class="arithmatex">\(g\)</span> is a function that combines the local and global features.</p>
+<p>The overall DIM objective consists of three parts, global MI, local MI and statistical constraints.</p>
+<div class="arithmatex">\[
+\begin{align}
+\max_{\omega_1, \omega_2, \psi} &amp;\Big(
+    \alpha \hat{I}_{\omega_1, \psi} \big( X; E_\psi(X) \big) + \frac{\beta}{M^2}\sum_{i=1}^{M^2} \hat{I}_{\omega_2, \psi} \big (X^{(i)}; E_\psi(X) \big)
+\Big) + \\
+&amp;\min_\psi\max_\phi \gamma \hat{D}_\phi(V \Vert U_{\psi, P})
+\end{align}
+\]</div>
+<p>In the following sections, we first introduce how to enfore statistical constraints <span class="arithmatex">\(\hat{D}_\phi\)</span> and local MI maximization, then discuss objectives for general MI maximization <span class="arithmatex">\(\hat{I}\)</span>.</p>
+<h3 id="statistical-constraints">Statistical Constraints<a class="headerlink" href="#statistical-constraints" title="Permanent link">&para;</a></h3>
+<p><img alt="Matching the output of the encoder to a prior." class="image-center" src="../../assets/images/DIM_fig7_statistical_constraint.jpg" style="width: 70%" /></p>
+<div class="admonition note">
+<p class="admonition-title">Why use adversarial objectives for KL regularization?</p>
+<p>Here we could also use VAE-style prior regularization <span class="arithmatex">\(\min \KL \big(q(z|x) \Vert p(z) \big)\)</span>, but this assumes for every data point <span class="arithmatex">\(x\)</span>, its latent <span class="arithmatex">\(q(z|x)\)</span> is close to <span class="arithmatex">\(p(z)\)</span>. This will encourage <span class="arithmatex">\(q(z)\)</span> to pick the modes of <span class="arithmatex">\(p(z)\)</span>, rather than the whole distribution of <span class="arithmatex">\(p(z)\)</span>. See the <a href="https://arxiv.org/abs/1511.05644">Adversarial AutoEncoders</a> paper for more details.</p>
+</div>
+<p>DIM imposes statistical constraints onto learned representations by implicitly training the encoder so that the push-forward distribution, <span class="arithmatex">\(U_{\psi, P}\)</span>, matches
+a prior <span class="arithmatex">\(V\)</span>. Following <a href="#variational-representation-of-the-f-divergence">variational representation of the Jensen-Shannon divergence</a>, we optimize this objective by</p>
+<div class="arithmatex">\[
+\min_\psi \max_\phi \JS(V \Vert U_{\psi, P}) = \E_{v(z)} \log D_\phi (z) + \E_{p(x)} \log (1 - D_\phi (E_\psi (x)))
+\]</div>
+<p>Note that the discriminator <span class="arithmatex">\(D_\phi\)</span> operates in the latent space rather than the input space.</p>
+<h3 id="local-mi-maximization">Local MI Maximization<a class="headerlink" href="#local-mi-maximization" title="Permanent link">&para;</a></h3>
+<p>Maximizing the mutual information b/t encoder input and output may not be meaningful enough. We propose to maximize the average MI between the high-level representation and local patches of the image. Because the same global representation is encouraged to have high MI with all the patches, this favours encoding aspects of the data that are shared across patches.</p>
+<p><img alt="Maximizing mutual information between local features and global features." class="image-center" src="../../assets/images/DIM_fig3_local_global_mutual_info_max.jpg" style="width: 70%" /></p>
+<p>First we encode the input to a feature map, <span class="arithmatex">\(C_\psi(x) = \{ C_\psi^{(i)} \}_{i=1}^{M\times M}\)</span> that reflects useful structure in the data (e.g., spatial locality).
+Next, we summarize this local feature map into a global feature, <span class="arithmatex">\(E_\psi(x) = f_\psi \circ C_\psi(x)\)</span>.
+We then define our MI estimator on global/local pairs, maximizing the average estimated MI:</p>
+<div class="arithmatex">\[
+\max_{\omega, \psi} \frac{1}{M^2} \sum_{i=1}^{M^2} \hat{I}_{\omega, \psi}\big( C_\psi^{(i)}(X); E_\psi(X) \big).
+\]</div>
+<h3 id="mi-maximization-objectives">MI Maximization Objectives<a class="headerlink" href="#mi-maximization-objectives" title="Permanent link">&para;</a></h3>
+<h4 id="the-donsker-varadhan-objective">The Donsker-Varadhan Objective<a class="headerlink" href="#the-donsker-varadhan-objective" title="Permanent link">&para;</a></h4>
+<p>This lower-bound to the MI is based on <a href="#the-donsker-varadhan-representation-of-kl">the Donsker-Varadhan representation of the KL-divergence</a>. It is the tightest possible bound on KL divergence, but it is less stable and requires many negative samples.</p>
+<div class="arithmatex">\[
+I(X; Z) \ge \hat{I}^{\text{(DV)}}_{\psi, \omega} (X; Z) = \E_{p(x, z)} T_{\psi, \omega} (x, z) - \log \E_{p(x)p(z)} (\ee^{T_{\psi, \omega} (x, z)})
+\]</div>
+<h4 id="the-jensen-shannon-objective">The Jensen-Shannon Objective<a class="headerlink" href="#the-jensen-shannon-objective" title="Permanent link">&para;</a></h4>
+<p>Since we do not concern the precise value of mutual information, and rather primarily interested in its maximization, we could instead optimize on the Jensen-Shannon divergence. This objective is stable to optimize and requires few negative sample, but it is a looser bound to the true mutual information.</p>
+<p>Following <a href="#f-gan-objective"><span class="arithmatex">\(f\)</span>-GAN</a> formulation, with output activation <span class="arithmatex">\(g_f = -\log(1+\ee^{-v})\)</span> and conjugate function <span class="arithmatex">\(f^*(t) = -\log(1-\ee^t)\)</span>, we define the following objective:</p>
+<div class="arithmatex">\[
+\begin{align}
+&amp;\hat{I}^{\text{(JS)}}_{\psi, \omega} (X; E_\psi(X)) \\
+=&amp; \widehat{\JS}(p(x, E_\psi(x)) \Vert p(x)p(E_\psi(x))) \\
+=&amp; \E_{p(x)} \Big[ \widetilde{T}_{\psi, \omega} (x, E_\psi(x)) - \E_{p(x^\prime)} f^*(\widetilde{T}_{\psi, \omega} (x^\prime, E_\psi(x))) \Big] \\
+=&amp; \E_{p(x)} \Big[ -\log \big(1 + \ee^{-T_{\psi, \omega}(x, E_\psi(x))} \big) - \E_{p(x^\prime)} \log \big(1 + \ee^{T_{\psi, \omega}(x^\prime, E_\psi(x))} \big) \Big] \\
+=&amp; \E_{p(x)} \Big[ \log \sigma \big( T_{\psi, \omega}(x, E_\psi(x)) \big) + \E_{p(x^\prime)} \log \Big( 1 - \sigma \big( T_{\psi, \omega}(x^\prime, E_\psi(x)) \big) \Big) \Big]
+\end{align}
+\]</div>
+<p>where <span class="arithmatex">\(\widetilde{T} = g_f \circ T\)</span> is the discriminator output after activation <span class="arithmatex">\(g_f\)</span>. In section A.1 of the DMI paper <sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup>, the authors show theoretically and empirically that <span class="arithmatex">\(\max_{\psi, \omega} \JS(p(x, z) \Vert p(x)p(z))\)</span> is indeed a good maximizer of <span class="arithmatex">\(I(X; Z)\)</span>.</p>
+<h4 id="the-infonce-objective">The InfoNCE Objective<a class="headerlink" href="#the-infonce-objective" title="Permanent link">&para;</a></h4>
+<p>This objective uses noise-contrastive estimation to bound mutual information. It obtains strong results, but requires many negative samples.</p>
+<div class="arithmatex">\[
+\begin{align}
+\hat{I}^{\text{(InfoNCE)}}_{\psi, \omega} (X; E_\psi(X)) &amp;= \E_{p(x, z)} \bigg[
+    T_{\psi, \omega}(x, E_\psi(x)) - \E_{p(x^\prime)} \Big[
+        \log \sum_{x^\prime} \ee^{T_{\psi, \omega}(x^\prime, E_\psi(x)) }
+    \Big]
+\bigg]
+\end{align}
+\]</div>
+<h2 id="deep-graph-infomax">Deep Graph Infomax<a class="headerlink" href="#deep-graph-infomax" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>2019 ICLR - Deep Graph Infomax <sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup></p>
+</blockquote>
+<p>Deep Graph Infomax (DGI) is a general approach for learning node representations within graph-structured data in an unsupervised manner. It relies on maximizing mutual information between patch representations and corresponding high-level summaries of graphs.</p>
+<p>We first introduce</p>
+<ul>
+<li>The encoder <span class="arithmatex">\(E: \R^{N \times F^{\mathrm{in}}} \times \R^{N \times N} \to \R^{N \times F}\)</span> such that <span class="arithmatex">\(E(\mathbf{X}, \mathbf{A}) = \mathbf{H} = (\mathbf{h}_1, \dots, \mathbf{h}_N)^\top\)</span> produces node embeddings (or patch representations) that summarize a patch of the graph centered around node <span class="arithmatex">\(i\)</span>.</li>
+<li>The readout function <span class="arithmatex">\(R: \R^{N \times F} \to \R^F\)</span> which summarizes the obtained patch representations into a graph-level representation <span class="arithmatex">\(\mathbf{s} = R(E(\mathbf{X}, \mathbf{A}))\)</span>. It is implemented as a sigmoid after a mean <span class="arithmatex">\(R(\mathbf{H}) = \sigma\left( \frac{1}{N} \sum_{i=1}^N \mathbf{h}_i \right)\)</span>.</li>
+<li>The discriminator <span class="arithmatex">\(D: \R^F \times \R^F \to \R\)</span> such that <span class="arithmatex">\(D(\mathbf{h}_i, \mathbf{s})\)</span> represents the logit scores assigned to this patch-summary pair (should be higher for patches contained within the summary). It is implemented as a bilinear function <span class="arithmatex">\(D(\mathbf{h}_i, \mathbf{s}) = \mathbf{h}_i \mathbf{W} \mathbf{s}\)</span>.</li>
+<li>Negative samples are generated by pairing the summary vector <span class="arithmatex">\(\mathbf{s}\)</span> of a graph with patch representations <span class="arithmatex">\(\widetilde{\mathbf{h}}_j\)</span> from another graph <span class="arithmatex">\((\widetilde{\mathbf{X}}, \widetilde{\mathbf{A}})\)</span>. This alternative graph is obtained as other elements of a training set in a multi-graph setting, or by an explicit corruption function <span class="arithmatex">\((\widetilde{\mathbf{X}}, \widetilde{\mathbf{A}}) = C(\mathbf{X}, \mathbf{A})\)</span> which permutes row-wise the node feature matrix <span class="arithmatex">\(\mathbf{X}\)</span>.</li>
+</ul>
+<p>Next we introduce the DGI objective for one training graph <span class="arithmatex">\(\Gcal = (\mathbf{X}, \mathbf{A})\)</span>, based on <a href="#the-jensen-shannon-objective">the Jensen-Shannon objective for Deep InfoMax</a></p>
+<div class="arithmatex">\[
+\begin{align}
+\max \Lcal = \frac{1}{N + M} \bigg( &amp;
+    \sum_{i=1}^N \E_{x_i \sim V(\Gcal)} \log \sigma \big( D(\mathbf{h}_i, \mathbf{s}) \big) \\ + &amp; 
+    \sum_{j=1}^M \E_{\widetilde{x}_j \sim V(\widetilde{\Gcal})} \log \Big( 1 - \sigma \big(D(\widetilde{\mathbf{h}}_j, \mathbf{s}) \big) \Big)
+\bigg)
+\end{align}
+\]</div>
+<h2 id="infograph">InfoGraph<a class="headerlink" href="#infograph" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>2020 ICLR - InfoGraph: Unsupervised and Semi-supervised Graph-Level Representation Learning via Mutual Information Maximization <sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup></p>
+</blockquote>
+<p>InfoGraph studies learning the representations of <em>whole graphs</em> (rather than nodes as in DGI) in both unsupervised and semi-supervised scenarios. Its unsupervised version is similar to DGI except for</p>
+<ul>
+<li>Batch-wise generation of negative samples rather than random-sampling- or corruption-based negative samples.</li>
+<li>GIN methodologies for better graph-level representation learning.</li>
+</ul>
+<p>In semi-supervised setting, directly adding a supervised loss would likely result in negative transfer. The authors alleviate this problem by separating the parameters of the supervised encoder <span class="arithmatex">\(\varphi\)</span> and those of the unsupervised encoder <span class="arithmatex">\(\phi\)</span>, and adding a student-teacher loss which encourage mutual information maximization between the two encoders at all levels. The overall loss is:</p>
+<div class="arithmatex">\[
+\begin{align}
+\Lcal = &amp; \sum_{G \in \Gcal_{\mathrm{l}}} \lcal (\widetilde{y}_\phi(G), y_G) + \\
+&amp; \sum_{G \in \Gcal_{\mathrm{l}} \cup \Gcal_{\mathrm{u}}} \frac{1}{|V|} \sum_{u \in V} \widehat{I}(h^u_\varphi(G), H_\varphi(G)) - \\
+&amp; \lambda \sum_{G \in \Gcal_{\mathrm{l}} \cup \Gcal_{\mathrm{u}}} \frac{1}{|V|} \sum_{k=1}^K \widehat{I}(H^{(k)}_\phi(G), H^{(k)}_\varphi(G))
+\end{align}
+\]</div>
+<p>In practice, to reduce the computational overhead, at each training step, we enforce mutual-information maximization on a randomly chosen layer of the encoder.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>NeurIPS 2016 - <a href="https://arxiv.org/abs/1606.00709"><span class="arithmatex">\(f\)</span>-GAN: Training Generative Neural Samplers using Variational Divergence Minimization</a>; A <a href="https://kexue.fm/archives/6016">blog post</a> explaining the paper in Chinese.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>ICML 2018 - <a href="https://arxiv.org/abs/1801.04062">MINE: Mutual Information Neural Estimation</a>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>AISTATS 2010 - <a href="http://proceedings.mlr.press/v9/gutmann10a/gutmann10a.pdf">Noise-contrastive estimation: A new estimation principle for unnormalized statistical models</a>&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>NeurIPS 2018 - <a href="https://arxiv.org/abs/1807.03748">Representation Learning with Contrastive Predictive Coding</a>&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:5">
+<p>ICLR 2019 - <a href="https://arxiv.org/pdf/1808.06670.pdf">Learning deep representations by mutual information estimation and maximization</a> (<a href="http://karangrewal.ca/files/dim_slides.pdf">slides</a>, <a href="https://www.youtube.com/watch?v=o1HIkn8LEsw">video</a>); A <a href="https://kexue.fm/archives/6024">blog post</a> explaining the paper in Chinese.&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:6">
+<p>ICLR 2019 - <a href="https://arxiv.org/abs/1809.10341">Deep Graph Infomax</a>. For relations with previous unsupervised graph representation learning methods, see the IPAM tutorial <a href="http://www.ipam.ucla.edu/abstract/?tid=15546&amp;pcode=GLWS4">Unsupervised Learning with Graph Neural Networks</a> by Thomas Kipf and also Daza's Master Thesis <a href="https://dfdazac.github.io/assets/dd_thesis.pdf">A Modular Framework for Unsupervised Graph Representation Learning</a>.&#160;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:7">
+<p>ICLR 2020 - <a href="https://arxiv.org/abs/1908.01000">InfoGraph: Unsupervised and Semi-supervised Graph-Level Representation Learning via Mutual Information Maximization</a>&#160;<a class="footnote-backref" href="#fnref:7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+  <h2 id="__comments">Comments</h2>
+  <script src="https://giscus.app/client.js"
+        data-repo="hui2000ji/hui2000ji.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkzMzc2ODAwMzQ="
+        data-category-id="DIC_kwDOFCCWos4CBIqC"
+        data-mapping="pathname"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+  </script>
+  <!-- Reload on palette change -->
+  <script>
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object")
+      if (palette.color.scheme === "slate") {
+        var giscus = document.querySelector("script[src*=giscus]")
+        giscus.setAttribute("data-theme", "dark") 
+      }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+          /* Instruct Giscus to change theme */
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="mailto:huiyu.cai@umontreal.ca" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l217.6 163.2c11.4 8.5 27 8.5 38.4 0l217.6-163.2c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 176v208c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V176L294.4 339.2a63.9 63.9 0 0 1-76.8 0z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/hui2000ji" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/hui2000ji" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://scholar.google.com/citations?user=ZQ2VZ0sAAAAJ" target="_blank" rel="noopener" title="scholar.google.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M219.3.5c3.1-.6 6.3-.6 9.4 0l200 40C439.9 42.7 448 52.6 448 64s-8.1 21.3-19.3 23.5L352 102.9V160c0 70.7-57.3 128-128 128S96 230.7 96 160v-57.1l-48-9.6v65.1l15.7 78.4c.9 4.7-.3 9.6-3.3 13.3S52.8 256 48 256H16c-4.8 0-9.3-2.1-12.4-5.9s-4.3-8.6-3.3-13.3L16 158.4V86.6C6.5 83.3 0 74.3 0 64c0-11.4 8.1-21.3 19.3-23.5zM111.9 327.7c10.5-3.4 21.8.4 29.4 8.5l71 75.5c6.3 6.7 17 6.7 23.3 0l71-75.5c7.6-8.1 18.9-11.9 29.4-8.5 65 20.9 112 81.7 112 153.6 0 17-13.8 30.7-30.7 30.7H30.7C13.8 512 0 498.2 0 481.3c0-71.9 47-132.7 111.9-153.6"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://orcid.org/0000-0001-8506-537X" target="_blank" rel="noopener" title="orcid.org" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M294.75 188.19h-45.92V342h47.47c67.62 0 83.12-51.34 83.12-76.91 0-41.64-26.54-76.9-84.67-76.9M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8m-80.79 360.76h-29.84v-207.5h29.84zm-14.92-231.14a19.57 19.57 0 1 1 19.57-19.57 19.64 19.64 0 0 1-19.57 19.57M300 369h-81V161.26h80.6c76.73 0 110.44 54.83 110.44 103.85C410 318.39 368.38 369 300 369"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top", "search.highlight"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+      
+        <script src="../../assets/js/config.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://hui2000ji.github.io/</loc>
+         <lastmod>2024-09-23</lastmod>
+    </url>
+    <url>
+         <loc>https://hui2000ji.github.io/machine_learning/</loc>
+         <lastmod>2024-09-23</lastmod>
+    </url>
+    <url>
+         <loc>https://hui2000ji.github.io/machine_learning/disentangled_representation_learning/</loc>
+         <lastmod>2024-09-23</lastmod>
+    </url>
+    <url>
+         <loc>https://hui2000ji.github.io/machine_learning/equivariant_gnns/</loc>
+         <lastmod>2024-09-23</lastmod>
+    </url>
+    <url>
+         <loc>https://hui2000ji.github.io/machine_learning/graph_neural_networks/</loc>
+         <lastmod>2024-09-23</lastmod>
+    </url>
+    <url>
+         <loc>https://hui2000ji.github.io/machine_learning/representation_learning_with_mutual_information_maximization/</loc>
+         <lastmod>2024-09-23</lastmod>
+    </url>
+    <url>
+         <loc>https://hui2000ji.github.io/python-tutorial/</loc>
+         <lastmod>2024-09-23</lastmod>
+    </url>
+    <url>
+         <loc>https://hui2000ji.github.io/single_cell/review/</loc>
+         <lastmod>2024-09-23</lastmod>
+    </url>
+</urlset>

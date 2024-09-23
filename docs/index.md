@@ -14,15 +14,17 @@ Feel free to reach out (links at [webpage footer](#index_bottom))!
 
 ## Publications
 
+### 2024
+
+![GearBind](assets/images/gearbind.png){: align=right style="width: 23%" }
+
+- [**GearBind: Pretrainable geometric graph neural network for antibody affinity maturation**](https://www.nature.com/articles/s41467-024-51563-8)<br><em>Nature Communications</em>, 2024<br><strong>Huiyu Cai</strong>\*, <a href="https://oxer11.github.io/">Zuobai Zhang</a>\*, <a href="https://mkaiw.github.io/">Mingkai Wang</a>\*, <a href="https://zhongbozitao.github.io/">Bozitao Zhong</a>\*, Quanxiao Li, Yuxuan Zhong, Yanling Wu, Tianlei Ying, <a href="https://jian-tang.com">Jian Tang</a> *<em>Equal contribution</em>
+
 ### 2023
 
 ![E3Bind](assets/images/e3bind.png){: align=right style="width: 23%" }
 
 - [**E3Bind: An End-to-End Equivariant Network for Protein-Ligand Docking**](https://arxiv.org/abs/2210.06069)<br><em>ICLR</em>, 2023<br><a href="https://zytzrh.github.io/">Yangtian Zhang</a>\*, <strong>Huiyu Cai</strong>\*, <a href="https://chenceshi.com/">Chence Shi</a>, <a href="https://jian-tang.com">Jian Tang</a> *<em>Equal contribution</em>
-
-![GearBind](assets/images/gearbind.png){: align=right style="width: 23%" }
-
-- [**GearBind: A Geometric Graph Neural Network for Protein-Ligand Binding Affinity Prediction**](https://www.biorxiv.org/content/10.1101/2023.08.10.552845v1)<br><em>In submission</em>, 2023<br><strong>Huiyu Cai</strong>\*, <a href="https://oxer11.github.io/">Zuobai Zhang</a>\*, <a href="https://mkaiw.github.io/">Mingkai Wang</a>\*, <a href="https://zhongbozitao.github.io/">Bozitao Zhong</a>\*, Yanling Wu, Tianlei Ying, <a href="https://jian-tang.com">Jian Tang</a> *<em>Equal contribution</em>
 
 ### 2022
 

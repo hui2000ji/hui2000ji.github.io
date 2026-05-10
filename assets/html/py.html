@@ -1,0 +1,60 @@
+<script type="text/javascript">
+    window.languagePluginUrl = 'https://cdn.jsdelivr.net/pyodide/v0.16.1/full/';
+</script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.16.1/full/pyodide.js"></script>
+
+<div style="position: relative">
+    <pre>
+        <code class="python hljs" id="code" style="height: 9em;" contenteditable="true" onchange="hljs.highlightAll()">print('123')</code>
+    </pre>
+</div>
+
+<button class="md-button md-button--primary" onclick="evaluatePython()">Run</button>
+
+<div>Output:</div>
+<textarea id="output" style="width: 100%; resize: none" rows="8" disabled></textarea>
+
+<script>
+    const output = document.getElementById("output");
+    const code = document.getElementById("code");
+    function addToOutput(s) {
+        var stdout = pyodide.runPython("sys.stdout.getvalue()")
+        code_lines = code.textContent.split(/\r|\n/)
+        code_value = ''
+        code_lines.forEach(function (item, index) {
+            if (index == 0)
+                code_value += '>>> ' + item
+            else
+                code_value += '   :' + item
+        });
+        if (typeof s === 'undefined')
+            s = ''
+        else {
+            s = s + '\n'
+        }
+        if (stdout) {
+            output.value += code_value + '\n' + stdout + '\n' + s;
+        } else {
+            output.value += code_value + '\n' + s;
+        }
+        pyodide.runPython("sys.stdout.seek(0);sys.stdout.truncate(0)")
+        output.scrollTop = output.scrollHeight;
+    }
+
+    output.value = 'Initializing...\n';
+    // init pyodide
+    languagePluginLoader.then(() => {
+        pyodide.runPython(`
+            import io, sys
+            sys.stdout = io.StringIO()
+            sys.stderr = io.StringIO()
+        `)
+        output.value += 'Ready!\n';
+    });
+
+    function evaluatePython() {
+        pyodide.runPythonAsync(code.textContent)
+        .then(output => { addToOutput(output) })
+        .catch(err => { addToOutput(err) });
+    }
+</script>

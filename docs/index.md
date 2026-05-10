@@ -2,23 +2,39 @@
 
 ![profile photo](assets/images/photo.jpg){: align=right style="width: 25%" }
 
-I am a third-year PhD candidate at <a href="https://mila.quebec/en">Mila - Quebec AI Institute</a> and <a href="https://diro.umontreal.ca/english/home/">Department of Computer Science and Operations Research</a>, <a href="https://www.umontreal.ca/en/">University of Montreal</a>, supervised by Prof. <a href="https://jian-tang.com">Jian Tang</a>. I graduated from the <a href="http://www.cis.pku.edu.cn/">Department of Machine Intelligence</a>,
+I am a fifth-year PhD candidate at <a href="https://mila.quebec/en">Mila - Quebec AI Institute</a> and <a href="https://diro.umontreal.ca/english/home/">Department of Computer Science and Operations Research</a>, <a href="https://www.umontreal.ca/en/">University of Montreal</a>, supervised by Prof. <a href="https://jian-tang.com">Jian Tang</a>. I graduated from the <a href="http://www.cis.pku.edu.cn/">Department of Machine Intelligence</a>,
 <a href="http://www.pku.edu.cn">Peking University</a> as an *Excellent Graduate in Beijing*.
 I was previously a member of the Language Computing and Web Mining Group,
 led by <a href="https://wanxiaojun.github.io/">Prof. Xiaojun Wan</a>.
 
-I am interested in deep generative models, geometric deep learning and their wide applications,
-such as biomolecular interaction modeling, drug discovery, single-cell data analysis, etc.
+I am interested in deep generative models, geometric deep learning and their applications in biomolecular interaction modeling and protein de novo design.
 
 Feel free to reach out (links at [webpage footer](#index_bottom))!
 
 ## Publications
 
+### 2026
+
+![denovo-ab-design](assets/images/denovo-ab-design.png){: align=right style="width: 23%" }
+
+- [**Generative AI-driven de novo design of high-affinity, epitope-specific antibodies targeting the CD93-IGFBP7 axis for cancer immunotherapy Open Access**](https://academic.oup.com/abt/advance-article/doi/10.1093/abt/tbag019/8664001)<br><em>Antibody Therapeutics</em>, 2026<br>Yixin Qian, Youxin Feng, Ming Zou, <strong>Huiyu Cai</strong>, Jintong Ye, Ping Li, <a href="https://jian-tang.com">Jian Tang</a>, Mi Deng
+
+### 2025
+
+![M3Site](assets/images/m3site.jpeg){: align=right style="width: 23%" }
+
+- [**M3Site: multiclass multimodal learning for protein active site identification and classification**](https://academic.oup.com/bib/article/26/6/bbaf590/8321763)<br><em>Briefings in Bioinformatics</em>, 2025<br><a href="https://ouyang-song.com/">Song Ouyang</a>, <a href="https://scholar.google.com/citations?user=zb1oVGIAAAAJ">Yong Luo</a>, <strong>Huiyu Cai</strong>, Kehua Su, Fei Liao, Na Zhan, Huangxuan Zhao, Tailang Yin, Lin Zhao, Dongjing Shan
+
+
 ### 2024
 
 ![GearBind](assets/images/gearbind.png){: align=right style="width: 23%" }
 
-- [**GearBind: Pretrainable geometric graph neural network for antibody affinity maturation**](https://www.nature.com/articles/s41467-024-51563-8)<br><em>Nature Communications</em>, 2024<br><strong>Huiyu Cai</strong>\*, <a href="https://oxer11.github.io/">Zuobai Zhang</a>\*, <a href="https://mkaiw.github.io/">Mingkai Wang</a>\*, <a href="https://zhongbozitao.github.io/">Bozitao Zhong</a>\*, Quanxiao Li, Yuxuan Zhong, Yanling Wu, Tianlei Ying, <a href="https://jian-tang.com">Jian Tang</a> *<em>Equal contribution</em>
+- [**GearBind: Pretrainable geometric graph neural network for antibody affinity maturation**](https://www.nature.com/articles/s41467-024-51563-8)<br><em>Nature Communications</em>, 2024<br><strong>Huiyu Cai</strong>\*, <a href="https://oxer11.github.io/">Zuobai Zhang</a>\*, Mingkai Wang\*, <a href="https://zhongbozitao.github.io/">Bozitao Zhong</a>\*, Quanxiao Li, Yuxuan Zhong, Yanling Wu, Tianlei Ying, <a href="https://jian-tang.com">Jian Tang</a> *<em>Equal contribution</em>
+
+![MMSite](assets/images/mmsite.png){: align=right style="width: 23%" }
+
+- [**MMSite: a multi-modal framework for the identification of active sites in proteins**](https://openreview.net/forum?id=XHdwlbNSVb)<br><em>NeurIPS</em>, 2024<br><a href="https://ouyang-song.com/">Song Ouyang</a>, <strong>Huiyu Cai</strong>, <a href="https://scholar.google.com/citations?user=zb1oVGIAAAAJ">Yong Luo</a>, Kehua Su, <a href="https://jszy.whu.edu.cn/zhanglefei/zh_CN/index.htm">Lefei Zhang</a>, <a href="https://scholar.google.com/citations?user=Shy1gnMAAAAJ">Bo Du</a>
 
 ### 2023
 

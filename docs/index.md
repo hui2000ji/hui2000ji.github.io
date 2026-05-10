@@ -25,6 +25,10 @@ Feel free to reach out (links at [webpage footer](#index_bottom))!
 
 - [**M3Site: multiclass multimodal learning for protein active site identification and classification**](https://academic.oup.com/bib/article/26/6/bbaf590/8321763)<br><em>Briefings in Bioinformatics</em>, 2025<br><a href="https://ouyang-song.com/">Song Ouyang</a>, <a href="https://scholar.google.com/citations?user=zb1oVGIAAAAJ">Yong Luo</a>, <strong>Huiyu Cai</strong>, Kehua Su, Fei Liao, Na Zhan, Huangxuan Zhao, Tailang Yin, Lin Zhao, Dongjing Shan
 
+![PNAS-8G3](assets/images/PNAS-8G3.png){: align=right style="width: 23%" }
+
+- [**Rapid restoration of potent neutralization activity against the latest Omicron variant JN.1 via AI rational design and antibody engineering**](https://www.pnas.org/doi/10.1073/pnas.2406659122)<br><em>PNAS</em>, 2025<br>[Yunji Liao](https://orcid.org/0000-0001-5405-8142), Hang Ma, Zhenyu Wang, Shusheng Wang, Yang He, Yunsong Chang, Huifang Zong, Haoneng Tang, [Lei Wang](https://orcid.org/0000-0002-1672-4455), Yong Ke, <strong>Huiyu Cai</strong>, [Ping Li](https://orcid.org/0009-0001-9959-1888), <a href="https://jian-tang.com">Jian Tang</a>, Hua Chen, [Aleksandra Drelich](https://orcid.org/0000-0002-0201-5017), [Bi-Hung Peng](https://orcid.org/0000-0003-1323-2241), [Jason Hsu](https://orcid.org/0000-0002-0530-2580), [Vivian Tat](https://orcid.org/0009-0002-0274-3900), [Chien-Te K. Tseng](https://orcid.org/0000-0001-5726-9834), Jingjing Song, [Yunsheng Yuan](https://orcid.org/0000-0001-5262-8447), Mingyuan Wu, Junjun Liu, Yali Yue, Xiaoju Zhang, Ziqi Wang, Li Yang, Jing Li, Xiaodan Ni, Hongshi Li, Yuning Xiang, Yanlin Bian, [Baohong Zhang](https://orcid.org/0000-0001-6453-961X), Haiyang Yin, [Dimiter S. Dimitrov](https://orcid.org/0000-0002-2258-1024), John Gilly, [Lei Han](lei.han@jechoinst.com), [Hua Jiang](hjiang@jechobio.com), [Yueqing Xie](yueqing.xie@jecholabs.com), and [Jianwei Zhu](https://orcid.org/0000-0001-6782-2023)
+
 
 ### 2024
 
